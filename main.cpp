@@ -10,18 +10,24 @@
  *
 */ 
 
+#include <Python.h>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <iomanip>
 #include <limits>
+#include <typeinfo>
 
 #include "menu.h"
 #include "store.h"
+#include "scraping.h"
+#include "algorithms.h"
+
 
 using namespace std;
 
-int main () {
+int main (int argc, char* argv[]) {
+	Py_Initialize();
 	
 	Menu menu;
 
@@ -45,8 +51,9 @@ int main () {
 			break;
 			
 			case '1':{
+				vector<vector<string>> amazonData;
 				float minPrice, maxPrice;
-				string product, keyWord;				
+				string product;				
 
 				cout << "________________________________________________" << endl;
 				cout << "		Buscando por produto" << endl;
@@ -65,16 +72,27 @@ int main () {
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
 			
 				cout << endl << endl;
-	
-				cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
+
+				char auxiliar[product.length()];
+				char *productFinal = auxiliar;
+				strToConstCharList(product, productFinal);
+
+				amazonData = getAmazonData(productFinal, minPrice, maxPrice);
+				
+				/*for(size_t cont = 0; cont < amazonData.size(); cont++) {
+					cout << amazonData[cont][0] << endl;
+					cout << amazonData[cont][1] << endl;
+					cout << amazonData[cont][2] << endl;
+					cout << amazonData[cont][3] << endl << endl;
+				}*/
+				
+				/*cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
 				cout << "(Opcional, caso não seja necessario, aperte enter)" << endl;
 				cout << "Palavra-chave: ";
 				getline(cin, keyWord);
 				cout << endl;
-				
+				*/
 
-						/* PYTHON AQUI - ACHAR PRODUTO/ PRECO/ URL */
-			
 				cout << "-------------------------------------------------" << endl;
 				cout << "		Resultado da Busca" << endl;			
 
@@ -227,5 +245,7 @@ int main () {
 		
 	} while (option != '0');
 
+	Py_Finalize();
+	
 	return 0;
 }
