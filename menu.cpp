@@ -19,14 +19,15 @@ using namespace std;
 
 /* Essa funcao eh responsavel por mostrar as opcoes do menu */
 void Menu::showMenu () {
-	cout << "Digite o numero correspondente a operacao desejada." << endl << endl;
-
+	cout << "*******************************************************" <<endl;
+	cout << "Digite o numero correspondente a operacao desejada." << endl;
+	cout << "-------------------------------------------------------" << endl;
 	cout << "1: Buscar por produto" << endl
 	     << "2: Configurar lojas" << endl
 	     << "3: Comparacao de preco entre duas lojas" << endl
 	     << "4: Lista de desejos" << endl
 	     << "0: Sair" << endl;
-	
+	cout << "*******************************************************" << endl;
 }
 
 /* Funcao que pega entrada do usuario e valida ela */
