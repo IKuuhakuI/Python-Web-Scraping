@@ -3,4 +3,8 @@
 
 using namespace std;
 
-vector<string> strToVector (const char*);
+#pragma once
+
+void strToConstCharList (string, char*&);
+float strToFloat (string);
+vector<string> constCharToVectorStr (const char*);

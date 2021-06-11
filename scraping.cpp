@@ -29,7 +29,7 @@ vector<const char*> pyTupleToVector (PyObject* incoming) {
 }
 
 
-vector <vector<string>> getAmazonData (char* productName/* int argc, char* argv[] */) {
+vector <vector<string>> getAmazonData (char* productName, float min, float max) {
 	// Py_Initialize();  
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append(\'.\')");
@@ -54,18 +54,12 @@ vector <vector<string>> getAmazonData (char* productName/* int argc, char* argv[
 	vector<vector<string>> productsData; 
 
 	for (size_t index = 0; index < result.size(); index++) {
-		vector <string> current = strToVector (result[index]);
+		vector <string> current = constCharToVectorStr (result[index]);
 
-		productsData.push_back (current); 
+		if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
+			productsData.push_back (current); 
+		}
 	}
-	/*
-	vector<string> example = strToVector (result[0]);
-
-	cout << example[0] << endl;
-	cout << example[1] << endl;
-	cout << example[2] << endl;
-	cout << example[3] << endl;
- 	*/
 
 	return productsData;
 }

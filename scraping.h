@@ -6,4 +6,4 @@ using namespace std;
 
 vector <const char*> pyTupleToVector (PyObject*);
 
-vector <vector<string>> getAmazonData (char *);
+vector <vector<string>> getAmazonData (char *, float, float);

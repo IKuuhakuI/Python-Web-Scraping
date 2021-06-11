@@ -1,10 +1,28 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <cstring>
+#include <algorithm>
+
+#include "algorithms.h"
 
 using namespace std;
 
-vector<string> strToVector (const char* incoming) {
+void strToConstCharList (string incoming, char* &output) {
+
+	strcpy (output, incoming.c_str());
+}
+
+float strToFloat (string incoming) {
+
+	incoming.erase (remove(incoming.begin(), incoming.end(), '.'), incoming.end());
+
+	incoming.replace (incoming.find(","), 1, ".");
+
+	return stof (incoming);
+}
+
+vector<string> constCharToVectorStr (const char* incoming) {
 	vector <string> result;
 
 	string current = incoming;
