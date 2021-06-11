@@ -13,7 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <typeinfo>
+#include <iomanip>
 
 #include "menu.h"
 #include "store.h"
@@ -39,7 +39,7 @@ int main () {
 
 		switch (option) {
 			case '0':
-				cout << "Saindo do programa" << endl;
+				cout << "Saindo do programa..." << endl;
 			break;
 			
 			case '1':
@@ -155,12 +155,34 @@ int main () {
 
 					case '3':
 					break;
+
+					default:
+						cout << "Opção invalida" << endl << endl;
 				}				
 
 			break;
 
-			case '3': 
+			case '3':
+				int store1, store2;
+
+				cout << "______________________________________________________" << endl;
+				cout << "      Comparação de preço entre duas lojas" << endl;
+				cout << "------------------------------------------------------" << endl;
 				
+				for(size_t cont = 0; cont < storesList.size(); cont++) {
+					cout << cont + 1 << ": " << storesList[cont].name << endl;
+				}
+				cout << "------------------------------------------------------" << endl;
+				
+				cout << "Selecione a primeira loja (Indique o numero correspondente): ";
+				cin >> store1;
+				cout << "Selecione a segunda loja (Indique o numero correspondente): ";
+				cin >> store2;
+
+				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
+
+
+
 			break; 
 
 			default:
