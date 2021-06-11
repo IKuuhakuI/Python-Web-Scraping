@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <iomanip>
+#include <limits>
 
 #include "menu.h"
 #include "store.h"
@@ -28,7 +29,6 @@ int main () {
 
 	vector<Store> storesList{amazon}; 	
 
-	string product;
 	char option;
 
 	do {
@@ -36,26 +36,47 @@ int main () {
 		menu.setSelectedOption();
 
 		option = menu.getSelectedOption();	
-
+		
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		
 		switch (option) {
 			case '0':
 				cout << "Saindo do programa..." << endl;
 			break;
 			
-			case '1':
+			case '1':{
 				float minPrice, maxPrice;
-				
+				string product, keyWord;				
+
 				cout << "________________________________________________" << endl;
 				cout << "		Buscando por produto" << endl;
 				cout << "------------------------------------------------" << endl;
 				cout << "Informe o nome do produto que deseja pesquisar: ";
 				getline(cin, product);
 				
+				cout << endl << endl;
+
 				cout << "Informe a faixa de preço do produto procurado" << endl;
 				cout << "Menor preço da faixa: ";
 				cin >> minPrice;
 				cout << "Maior preço da faixa: ";
 				cin >> maxPrice;
+
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
+			
+				cout << endl << endl;
+	
+				cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
+				cout << "(Opcional, caso não seja necessario, aperte enter)" << endl;
+				cout << "Palavra-chave: ";
+				getline(cin, keyWord);
+				cout << endl;
+				
+
+						/* PYTHON AQUI - ACHAR PRODUTO/ PRECO/ URL */
+			
+				cout << "-------------------------------------------------" << endl;
+				cout << "		Resultado da Busca" << endl;			
 
 				for(size_t cont = 0; cont < storesList.size(); cont ++) { 
 					cout << "-------------------------------------------------" << endl;
@@ -65,6 +86,9 @@ int main () {
 					cout << "Link para pagina: " << endl; /*AQUIIIIIIIIIIIIIIII*/
 					cout << "_________________________________________________" << endl;
 				}
+
+				cout << endl << endl;
+			}
 			break;
 			
 			case '2':
@@ -170,7 +194,7 @@ int main () {
 
 			break;
 
-			case '3':
+			case '3':{
 				int store1, store2;
 				string product;
 	
@@ -191,9 +215,10 @@ int main () {
 				cin >> store2;
 
 				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
-				cout << setw(20) << /*NOME PROD 1*/ << setw(30) << /*NOME PROD 2*/ << endl;
-				cout << setw(20) << /*PRECO1*/ << setw(30) << /*PRECO2*/ << endl;
-				cout << setw(20) << /*URL1*/  << setw(30) << /*URL2*/ << endl;
+				cout << setw(20) << store1/*NOME PROD 1*/ << setw(30) << store1/*NOME PROD 2*/ << endl;
+				cout << setw(20) << store1/*PRECO1*/ << setw(30) << store1/*PRECO2*/ << endl;
+				cout << setw(20) << store1/*URL1*/  << setw(30) << store1/*URL2*/ << endl;
+			}
 			break; 
 
 			default:
