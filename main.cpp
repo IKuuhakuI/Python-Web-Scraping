@@ -96,19 +96,26 @@ int main () {
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
 							if (storesList[cont].isSelected() == false) {
-								cout << cont << ": " << storesList[cont].name << endl;
+								cout << cont + 1 << ": " << storesList[cont].name << endl;
 								exist = true;
 							}
 						}
-						cout << "------------------------------------------------" << endl;
 						
-						if(exist == false)
+						if(exist == false) {
 							cout << "Não há lojas disponiveis. Todas as lojas já foram selecionadas. \n\n" << endl;
+						}
 						else {
+							cout << "0: Cancelar operação" << endl;
+							cout << "------------------------------------------------" << endl;
 							cout << "Qual loja deseja adicionar? (Indique o numero correspondente): ";
 							cin >> option2;
-							storesList[option2].changeSelection();
-							cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
+
+							if(option2 != 0) {
+								storesList[option2 - 1].changeSelection();
+								cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
+							}
+							else
+								cout << endl << endl;
 						}
 					}
 					break;
@@ -123,19 +130,25 @@ int main () {
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
 							if (storesList[cont].isSelected() == true) {
-								cout << cont << ": " << storesList[cont].name << endl;
+								cout << cont + 1 << ": " << storesList[cont].name << endl;
 								exist = true;
 							}
 						}
-						cout << "------------------------------------------------" << endl;
 				
 						if(exist == false)
 							cout << "Não há lojas disponiveis. Todas já foram removidas" << endl;
 						else {
+							cout << "0: Cancelar operação" << endl;
+							cout << "------------------------------------------------" << endl;
 							cout << "Qual loja deseja remover? (Indique o numero correspondente): ";
 							cin >> option2;
-							storesList[option2].changeSelection();
-							cout << "\nLoja removida com sucesso!!\n" << endl << endl;
+
+							if(option2 != 0) {
+								storesList[option2 - 1].changeSelection();
+								cout << "\nLoja removida com sucesso!!\n" << endl << endl;
+							}
+							else
+								cout << endl << endl;
 						}
 					}
 					break;
