@@ -1,3 +1,14 @@
+#
+# Universidade Federal do Rio de Janeiro
+# Escola Politecnica
+# Departamento de Eletronica e Computacao
+# EEL670 - Linguagens de Programacao - Turma 2020/2
+# Prof. Miguel Elias M. Campista
+# Autor: Luiz Carlos Aguiar Carrion & Maria Eduarda de Souza Mafra
+# Trabalho Final - Etapa 2
+# Decricao: Makefile
+#
+ 
 OS = $(shell uname -s) # Sistema Operacional
 
 CC = g++
@@ -15,7 +26,7 @@ LFLAGS = -Wall
 ##########################################
 
 # LAB 01 #################################
-WEBSCRAPINGOBJS = mainTest.o scraping.o algorithms.o
+WEBSCRAPINGOBJS = main.o scraping.o algorithms.o menu.o store.o
 		    
 WEBSCRAPING = webScraping
 ##########################################
