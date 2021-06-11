@@ -56,6 +56,8 @@ int main(int argc, char* argv[])
 
 	cout << example[0] << endl;
 	cout << example[1] << endl;
+	cout << example[2] << endl;
+	cout << example[3] << endl;
  
 	return 0;
 }

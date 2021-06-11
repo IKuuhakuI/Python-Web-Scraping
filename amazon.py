@@ -26,6 +26,12 @@ def getItem (item):
 		name = product.find('span', class_ = 'a-size-base-plus a-color-base a-text-normal').text
 		price = True
 
+		productLink = ""
+
+		for a in product.find_all('a', href=True):
+			productLink = a['href']
+			break
+
 		try:
 			priceWhole = product.find ('span', class_ = 'a-price-whole').text
 			priceFraction = product.find ('span', class_ = 'a-price-fraction').text
@@ -34,7 +40,7 @@ def getItem (item):
 
 		if price == True:
 			completePrice = priceWhole + priceFraction
-			currentProduct = (name, completePrice)
+			currentProduct = (name, completePrice, productLink, "amazon")
 			productList.append (currentProduct)
 			# print (name)
 			# print (priceWhole + priceFraction)
