@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+#include "algorithms.h"
+
 using namespace std;
 
 
@@ -46,14 +48,14 @@ int main(int argc, char* argv[])
 
 	PyObject* myResult = PyObject_CallObject (myFunction, args);
 
-	// vector<vector<const char*>> result = pyTupleToVector (myResult);
 	vector <const char*> result = pyTupleToVector (myResult);
 
-	cout << result[0] << endl;
+	Py_Finalize();
 
-	//cout << result << endl;
+	vector<string> example = strToVector (result[0]);
 
-	Py_Finalize(); 
+	cout << example[0] << endl;
+	cout << example[1] << endl;
+ 
 	return 0;
 }
-
