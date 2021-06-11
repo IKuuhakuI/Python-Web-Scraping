@@ -43,12 +43,20 @@ int main () {
 			break;
 			
 			case '1':
+				float minPrice, maxPrice;
+				
 				cout << "________________________________________________" << endl;
 				cout << "		Buscando por produto" << endl;
 				cout << "------------------------------------------------" << endl;
 				cout << "Informe o nome do produto que deseja pesquisar: ";
 				getline(cin, product);
 				
+				cout << "Informe a faixa de preço do produto procurado" << endl;
+				cout << "Menor preço da faixa: ";
+				cin >> minPrice;
+				cout << "Maior preço da faixa: ";
+				cin >> maxPrice;
+
 				for(size_t cont = 0; cont < storesList.size(); cont ++) { 
 					cout << "-------------------------------------------------" << endl;
 					cout << "Loja: " << storesList[cont].name << endl;
@@ -164,7 +172,8 @@ int main () {
 
 			case '3':
 				int store1, store2;
-
+				string product;
+	
 				cout << "______________________________________________________" << endl;
 				cout << "      Comparação de preço entre duas lojas" << endl;
 				cout << "------------------------------------------------------" << endl;
@@ -174,15 +183,17 @@ int main () {
 				}
 				cout << "------------------------------------------------------" << endl;
 				
+				cout << "Indique o produto a ser buscado: ";
+				getline(cin, product);
 				cout << "Selecione a primeira loja (Indique o numero correspondente): ";
 				cin >> store1;
 				cout << "Selecione a segunda loja (Indique o numero correspondente): ";
 				cin >> store2;
 
 				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
-
-
-
+				cout << setw(20) << /*NOME PROD 1*/ << setw(30) << /*NOME PROD 2*/ << endl;
+				cout << setw(20) << /*PRECO1*/ << setw(30) << /*PRECO2*/ << endl;
+				cout << setw(20) << /*URL1*/  << setw(30) << /*URL2*/ << endl;
 			break; 
 
 			default:
@@ -191,4 +202,5 @@ int main () {
 		
 	} while (option != '0');
 
+	return 0;
 }
