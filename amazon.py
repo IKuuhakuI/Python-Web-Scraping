@@ -34,10 +34,10 @@ def getItem (item):
 
 		if price == True:
 			completePrice = priceWhole + priceFraction
-			currentProduct = [name, completePrice]
+			currentProduct = (name, completePrice)
 			productList.append (currentProduct)
 			# print (name)
 			# print (priceWhole + priceFraction)
-	return productList
+	return tuple(productList)
 
 #print(getItem ('Iphone X'))
