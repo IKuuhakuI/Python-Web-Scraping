@@ -32,8 +32,10 @@ int main (int argc, char* argv[]) {
 	Menu menu;
 
 	Store amazon("Amazon");
+	Store submarino("Subamarino");
 
-	vector<Store> storesList{amazon}; 	
+	vector<Store> storesList{amazon, submarino}; 	
+	vector<vector<string>> productInfoFromEachStore;
 
 	char option;
 
@@ -51,7 +53,7 @@ int main (int argc, char* argv[]) {
 			break;
 			
 			case '1':{
-				vector<vector<string>> amazonData;
+				vector<vector<string>> amazonData, submarinoData;
 				float minPrice, maxPrice;
 				string product;				
 
@@ -78,13 +80,25 @@ int main (int argc, char* argv[]) {
 				strToConstCharList(product, productFinal);
 
 				amazonData = getAmazonData(productFinal, minPrice, maxPrice);
-				
+				productInfoFromEachStore.push_back(amazonData[0]);				
+
+				submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
+				productInfoFromEachStore.push_back(amazonData[1]);				
+
+
 				/*for(size_t cont = 0; cont < amazonData.size(); cont++) {
 					cout << amazonData[cont][0] << endl;
 					cout << amazonData[cont][1] << endl;
 					cout << amazonData[cont][2] << endl;
 					cout << amazonData[cont][3] << endl << endl;
-				}*/
+				} */
+
+				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
+					cout << productInfoFromEachStore[cont][0] << endl;
+					cout << productInfoFromEachStore[cont][1] << endl;
+					cout << productInfoFromEachStore[cont][2] << endl;
+					cout << productInfoFromEachStore[cont][3] << endl;
+				}
 				
 				/*cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
 				cout << "(Opcional, caso não seja necessario, aperte enter)" << endl;
@@ -92,17 +106,19 @@ int main (int argc, char* argv[]) {
 				getline(cin, keyWord);
 				cout << endl;
 				*/
-
+				
 				cout << "-------------------------------------------------" << endl;
 				cout << "		Resultado da Busca" << endl;			
 
 				for(size_t cont = 0; cont < storesList.size(); cont ++) { 
-					cout << "-------------------------------------------------" << endl;
-					cout << "Loja: " << storesList[cont].name << endl;
-					cout << "Nome do produto: " << product << endl;
-					cout << "Preço: R$: " << endl; /*AQUUUUUUUUUUUUI*/
-					cout << "Link para pagina: " << endl; /*AQUIIIIIIIIIIIIIIII*/
-					cout << "_________________________________________________" << endl;
+					if (storesList[cont].isSelected() == true) {
+						cout << "-------------------------------------------------" << endl;
+						cout << "Loja: " << storesList[cont].name << endl;
+						cout << "Nome do produto: " << productInfoFromEachStore[cont][0] << endl;
+						cout << "Preço: R$: " << productInfoFromEachStore[cont][1] <<endl; 
+						cout << "Link para pagina: " << completeURL(productInfoFromEachStore[cont]) <<endl; 
+						cout << "_________________________________________________" << endl;
+					}
 				}
 
 				cout << endl << endl;
@@ -240,7 +256,7 @@ int main (int argc, char* argv[]) {
 			break; 
 
 			default:
-				cout << "Opção invalida" << endl;		
+				cout << "Opção invalida\n\n" << endl;		
 		}
 		
 	} while (option != '0');

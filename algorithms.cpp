@@ -8,7 +8,7 @@
 
 using namespace std;
 
-string comleteURL (vector<string> productList) {
+string completeURL (vector<string> productList) {
 	string inicialURL = productList[2];
 	
 	string finalURL = "www." + productList[3] + ".com.br" + inicialURL;
