@@ -95,12 +95,14 @@ int main (int argc, char* argv[]) {
 							isValid = false;
 						}
 					} catch (invalid_argument& e) {
-						cout << "Indices invalidos!" << endl;
 						isValid = false;
 					}
 
+					if (!isValid) {
+						cout << "Precos invalidos!" << endl;
+					}
 
-				} while (isValid == false);
+				} while (!isValid);
 
 				// Limpar o buffer de entrada
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
@@ -114,27 +116,47 @@ int main (int argc, char* argv[]) {
 
 				vector <Product*> productList;
 
+				string currentName, currentPrice, currentUrl, currentStore;
+	
 				if ((*amazon).isSelected() == true) {
 					amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
 
-					// [0] -> Nome do Produto | [1] -> Preco | [2] -> URL | [3] -> Nome da Loja
-					Product* amazonProduct = new Product (amazonData[0][0], amazonData[0][1], amazonData[0][2], amazonData[0][3]);
+					currentName = amazonData[0][0];
+					currentPrice = amazonData[0][1];
+					currentUrl = amazonData[0][2];
+					currentStore = amazonData[0][3];
+
+					currentUrl = completeURL (currentStore, currentUrl);
+
+					Product* amazonProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
 					productList.push_back(amazonProduct);				
 				}
 
 				if ((*americanas).isSelected() == true) {
 					americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
 
-					// [0] -> Nome do Produto | [1] -> Preco | [2] -> URL | [3] -> Nome da Loja
-					Product* americanasProduct = new Product (americanasData[0][0], americanasData[0][1], americanasData[0][2], americanasData[0][3]);
+					currentName = americanasData[0][0];
+					currentPrice = americanasData[0][1];
+					currentUrl = americanasData[0][2];
+					currentStore = americanasData[0][3];
+
+					currentUrl = completeURL (currentStore, currentUrl);
+
+					Product* americanasProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
 					productList.push_back(americanasProduct);				
 				}
 
 				if ((*submarino).isSelected() == true) {
 					submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
+		
+					currentName = submarinoData[0][0];
+					currentPrice = submarinoData[0][1];
+					currentUrl = submarinoData[0][2];
+					currentStore = submarinoData[0][3];
 
-					// [0] -> Nome do Produto | [1] -> Preco | [2] -> URL | [3] -> Nome da Loja
-					Product* submarinoProduct = new Product (submarinoData[0][0], submarinoData[0][1], submarinoData[0][2], submarinoData[0][3]);
+					currentUrl = completeURL (currentStore, currentUrl);
+
+					Product* submarinoProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
 					productList.push_back(submarinoProduct);				
 				}
 				

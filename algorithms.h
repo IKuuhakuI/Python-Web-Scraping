@@ -17,7 +17,10 @@ using namespace std;
 
 #pragma once
 
+string completeURL (string, string);
+
 void strToConstCharList (string, char*&);
+
 float strToFloat (string);
+
 vector<string> constCharToVectorStr (const char*);
-string completeURL (vector<string>);

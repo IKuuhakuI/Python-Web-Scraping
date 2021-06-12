@@ -8,15 +8,8 @@
 
 using namespace std;
 
-string completeURL (vector<string> productList) {
-	string initialURL = productList[2];
-	string finalURL;
-	
-	if (productList[3] == "mercado livre") {
-		finalURL = productList[2];	
-	} else {
-		string finalURL = "www." + productList[3] + ".com.br" + initialURL;
-	}	
+string completeURL (string storeName, string initialURL) {
+	string finalURL = "www." + storeName + ".com.br" + initialURL;
 
 	return finalURL;
 }
