@@ -82,13 +82,11 @@ int checkEmptySpaces (string incoming) {
 	if (incoming == "") {
 		return -1;
 	} else if (incoming[0] != ' ') {
-		cout << "Aqui" << endl;
 		notEmpty = true;
 	}
 	
 	while (index < (incoming.size() - 1) && incoming[index] == ' ') {
 		if (incoming[index + 1] != ' ') {
-			cout << "Char: " << incoming[index + 1] << endl;
 			notEmpty = true;
 		}
 		index ++;
@@ -96,9 +94,6 @@ int checkEmptySpaces (string incoming) {
 
 	if (notEmpty == false) {
 		index = -1;
-	} else {
-		cout << "Index: " << index << endl;
-		cout << "Char: " << incoming[index] << endl;
 	}
 
 	return index;

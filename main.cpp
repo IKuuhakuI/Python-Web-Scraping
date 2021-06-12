@@ -191,50 +191,49 @@ int main (int argc, char* argv[]) {
 				}
 				break;
 				
-				case '2': {
+			case '2': {
 					
-					char chooseStore;
-					vector<vector<string>> productInfoFromEachStore, storeData;
-					string product;
-					float minPrice, maxPrice;
+				char chooseStore;
+				vector<vector<string>> productInfoFromEachStore, storeData;
+				string product;
+				float minPrice, maxPrice;
 		
-					cout << "________________________________________________" << endl;
-					cout << "		Lista de produtos" << endl;
-					cout << "------------------------------------------------" << endl;
+				cout << "________________________________________________" << endl;
+				cout << "		Lista de produtos" << endl;
+				cout << "------------------------------------------------" << endl;
 					
-					for(size_t cont = 0; cont < storesList.size(); cont++) {
-						cout << cont + 1 << ": " << storesList[cont]->name << endl;
-					}
+				for(size_t cont = 0; cont < storesList.size(); cont++) {
+					cout << cont + 1 << ": " << storesList[cont]->name << endl;
+				}
 		
-					cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
-					cin >> chooseStore;
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
+				cin >> chooseStore;
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					
-					cout << endl;
+				cout << endl;
 
-					bool notEmpty = false;
+				bool notEmpty = false;
 
-					do {
-						string tempProduct;
-						cout << "Informe o nome do produto que deseja pesquisar: ";
-						getline(cin, tempProduct);
+				do {
+					string tempProduct;
+					cout << "Informe o nome do produto que deseja pesquisar: ";
+					getline(cin, tempProduct);
 						
-						int index = checkEmptySpaces (tempProduct);
+					int index = checkEmptySpaces (tempProduct);
 
-						if (index != -1) {
-							product = tempProduct.substr (index, tempProduct.size() - index);
-							cout << product << endl;
-							notEmpty = true;
-						}
-
+					if (index != -1) {
+						product = tempProduct.substr (index, tempProduct.size() - index);
+						cout << product << endl;
+						notEmpty = true;
+					}
 				} while (notEmpty == false);
 
 				cout << endl;
-                                
+                              
 				cout << "Informe a faixa de preço do produto procurado" << endl;
-                                cout << "Menor preço da faixa: ";
-                                cin >> minPrice;
-                                cout << "Maior preço da faixa: ";
+                       	        cout << "Menor preço da faixa: ";
+				cin >> minPrice;
+				cout << "Maior preço da faixa: ";
                                 cin >> maxPrice;
 				cout << endl;			
 
