@@ -38,6 +38,10 @@ int main (int argc, char* argv[]) {
 
 	vector<Store*> storesList{amazon, americanas, submarino};
 
+	// Define a precisao para 2 casas decimais
+	cout << fixed;
+	cout << setprecision(2);
+
 	char option;
 
 	do {
@@ -188,9 +192,9 @@ int main (int argc, char* argv[]) {
 			break;
 			
 
-			case '2': /*{
+			case '2': {
 				
-				char option1;
+				char chooseStore;
 				vector<vector<string>> productInfoFromEachStore, storeData;
 				string product;
 				float minPrice, maxPrice;
@@ -200,11 +204,11 @@ int main (int argc, char* argv[]) {
 				cout << "------------------------------------------------" << endl;
 				
 				for(size_t cont = 0; cont < storesList.size(); cont++) {
-					cout << cont + 1 << ": " << storesList[cont].name << endl;
+					cout << cont + 1 << ": " << storesList[cont]->name << endl;
 				}
 	
 				cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
-				cin >> option1;
+				cin >> chooseStore;
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				
 				cout << endl;
@@ -227,7 +231,7 @@ int main (int argc, char* argv[]) {
                                 char *productFinal = auxiliar;
                                 strToConstCharList(product, productFinal);
 				
-				switch(option1) {
+				switch(chooseStore) {
 					case '1':
 						storeData = getData(productFinal, minPrice, maxPrice, "amazon");
 					break;
@@ -237,22 +241,34 @@ int main (int argc, char* argv[]) {
 					case '3':
 						storeData = getData(productFinal, minPrice, maxPrice, "submarino");
 					break;
-					case '4':
-						//storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");
-					break;
 					default:
 						cout << "Opção de loja indisponivel." << endl;
 
+				}
+
+				vector <Product*> storeVector;
+
+				for (size_t index = 0; index < storeData.size(); index++) {
+					
+					string productName = storeData[index][0];
+					string productPrice = storeData[index][1];
+					string storeName = storeData[index][3];
+
+					string productUrl = completeURL (storeName, storeData[index][2]);
+
+					Product* currentProduct = new Product (productName, productPrice, productUrl, storeName);
+
+					storeVector.push_back (currentProduct);
 				}
 
 				cout << "\n________________________________________________" << endl;
 				cout << "                       LISTA" << endl;
 				cout << "------------------------------------------------" << endl;
 				
-				for(size_t cont = 0; cont < storeData.size(); cont++) {
-					cout << "Nome do produto : " << storeData[cont][0] << endl;
-					cout << "Preço: R$ " << storeData[cont][1] << endl;
-					cout << "Link para pagina: " << completeURL(storeData[cont]) << endl;
+				for(size_t index = 0; index < storeVector.size(); index++) {
+					cout << "Nome do produto : " << (*storeVector[index]).getName() << endl;
+					cout << "Preço: R$ " << (*storeVector[index]).getPrice() << endl;
+					cout << "Link para pagina: " << (*storeVector[index]).getURL() << endl;
 					cout << endl;
 				}
 
@@ -260,8 +276,6 @@ int main (int argc, char* argv[]) {
                                 
 				cout << endl << endl;
 			}	
-			*/
-			cout << "O JOGO" << endl;
 			break;
 
 
