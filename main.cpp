@@ -278,14 +278,6 @@ int main (int argc, char* argv[]) {
 						
 				} while (!isValid);
 
-
-			/*	cout << "Informe a faixa de preço do produto procurado" << endl;
-                       	        cout << "Menor preço da faixa: ";
-				cin >> minPrice;
-				cout << "Maior preço da faixa: ";
-                                cin >> maxPrice;
-				cout << endl;			
-*/
                                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 				char auxiliar[product.length()];
@@ -374,12 +366,15 @@ int main (int argc, char* argv[]) {
 						cout << "------------------------------------------------" << endl;
 						
 						bool exist = false;
+						vector<int> avaiableStores;
+						bool conditionStore = false;
 						int selectedStore;
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
 							if ((*(storesList[cont])).isSelected() == false) {
 								cout << cont + 1 << ": " << (*(storesList[cont])).name << endl;
 								exist = true;
+								avaiableStores.push_back(cont + 1);
 							}
 						}
 						
@@ -392,9 +387,22 @@ int main (int argc, char* argv[]) {
 							cin >> selectedStore;
 
 							if (selectedStore != 0) {
-								(*(storesList[selectedStore - 1])).changeSelection();
-								cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
-							}
+								for(size_t cont = 0; cont < storesList.size() && conditionStore == false; cont++) {
+									if (avaiableStores[cont] == selectedStore) {
+										conditionStore = true;
+									} else {
+										conditionStore = false;
+									}
+								}
+								
+								if(conditionStore== true) {
+									(*(storesList[selectedStore - 1])).changeSelection();
+									cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
+								} else {
+									cout << "Loja selecionada não está dentre as opçoes" << endl;
+								}	
+								
+							}	
 
 							cout << endl << endl;
 						}
@@ -408,11 +416,14 @@ int main (int argc, char* argv[]) {
 						
 						bool exist = false;
 						int selectedStore;
-							
+						vector<int> avaiableStores;
+						bool conditionStore = false;
+		
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
 							if ((*(storesList[cont])).isSelected() == true) {
 								cout << cont + 1 << ": " << (*(storesList[cont])).name << endl;
 								exist = true;
+								avaiableStores.push_back(cont + 1);
 							}
 						}
 				
@@ -424,12 +435,25 @@ int main (int argc, char* argv[]) {
 							cout << "Qual loja deseja remover? (Indique o numero correspondente): ";
 							cin >> selectedStore;
 
-							if(selectedStore != 0) {
-								(*(storesList[selectedStore - 1])).changeSelection();
-								cout << "\nLoja removida com sucesso!!\n" << endl << endl;
-							} else {
-								cout << endl << endl;
+							if (selectedStore != 0) {
+								for(size_t cont = 0; cont < storesList.size() && conditionStore == false; cont++) {
+									if (avaiableStores[cont] == selectedStore) {
+										conditionStore = true;
+									} else {
+										conditionStore = false;
+									}
+								}
+								
+								if(conditionStore== true) {
+									(*(storesList[selectedStore - 1])).changeSelection();
+									cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
+								} else {
+									cout << "Loja selecionada não esta dentre as opções" << endl;
+								}	
+
 							}
+
+							cout << endl << endl;
 						}
 					}
 					break;
