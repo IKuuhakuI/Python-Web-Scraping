@@ -35,9 +35,9 @@ int main (int argc, char* argv[]) {
 	Store amazon("Amazon");
 	Store americanas("Americanas");
 	Store submarino("Submarino");
-	Store casasBahia("Casas Bahia");
+	Store mercadoLivre("Mercado Livre");
 
-	vector<Store> storesList{amazon, americanas, submarino, casasBahia};
+	vector<Store> storesList{amazon, americanas, submarino, mercadoLivre};
 
 	char option;
 
@@ -93,21 +93,26 @@ int main (int argc, char* argv[]) {
 				submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
 				productInfoFromEachStore.push_back(submarinoData[0]);				
 
-				/*casasBahiaData = getData(productFinal, minPrice, maxPrice, "casasBahia");
-				productInfoFromEachStore.push_back(casasBahiaData[0]);	*/			
+				/*mercadoLivreData = getData(productFinal, minPrice, maxPrice, "mercado livre");
+				productInfoFromEachStore.push_back(mercadoLivreData[0]);	*/			
 				
 				float currentPrice;
 				bool found = false;
 				size_t index = 0;
+				
+				cout << storesList[0].isSelected() << endl;
 
 				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					
-					if(storesList[cont].isSelected() == true && found == false) {
+					if(storesList[cont].isSelected() == 1 && found == false) {
 						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
 						found = true;
+						cout << "AQUI" << endl;
 					}
+				}
 
-					if (currentPrice> strToFloat(productInfoFromEachStore[cont][1]) && storesList[cont].isSelected() == true && found == true) {
+				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
+					if (currentPrice> strToFloat(productInfoFromEachStore[cont][1]) && storesList[cont].isSelected() == true /*&& found == true*/) {
 						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
                                                 index = cont;
 					}
@@ -194,7 +199,7 @@ int main (int argc, char* argv[]) {
 						storeData = getData(productFinal, minPrice, maxPrice, "submarino");
 					break;
 					case '4':
-						/*storeData = getData(productFinal, minPrice, maxPrice, "casasBahia");*/
+						/*storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");*/
 					break;
 					default:
 						cout << "Opção de loja indisponivel." << endl;
@@ -306,6 +311,7 @@ int main (int argc, char* argv[]) {
 							if(option2 != 0) {
 								storesList[option2 - 1].changeSelection();
 								cout << "\nLoja removida com sucesso!!\n" << endl << endl;
+								cout << storesList[option2 - 1].isSelected() << endl;
 							}
 							else
 								cout << endl << endl;
@@ -385,7 +391,7 @@ int main (int argc, char* argv[]) {
 								productInfoFromEachStore.push_back(storeData[0]);
 							}break;
 							case 4:{
-								/*storeData = getData(productFinal, minPrice, maxPrice, "casasBahia");*/
+								/*storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");*/
 						
 							}break;
 							default:
