@@ -317,7 +317,7 @@ int main (int argc, char* argv[]) {
 
 			case '4':{
 				int store1, store2;
-				vector<vector<string>> productInfoFromEachStore;
+				vector<vector<string>> productInfoFromEachStore, storeData;
 				float minPrice, maxPrice;
 				string product;
 	
@@ -330,38 +330,101 @@ int main (int argc, char* argv[]) {
 				}
 				cout << "------------------------------------------------------" << endl;
 				
-				cout << "Indique o produto a ser buscado: ";
-				getline(cin, product);
-				cout << endl;			
-	
-				cout << "Informe a faixa de preço do produto procurado" << endl;
-				cout << "Menor preço da faixa: ";
-				cin >> minPrice;
-				cout << "Maior preço da faixa: ";
-				cin >> maxPrice;
-				cout << endl;			
-	
 				cout << "Selecione a primeira loja (Indique o numero correspondente): ";
 				cin >> store1;
 				cout << "Selecione a segunda loja (Indique o numero correspondente): ";
 				cin >> store2;
 				cout << endl;
+			
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	
+				vector<int> stores;
+				stores.push_back(store1);
+				stores.push_back(store2);
 
-				char auxiliar[product.length()];
-                                char *productFinal = auxiliar;
-                                strToConstCharList(product, productFinal);
-                          
+				int optionDW;
 
-				 /*   amazonData = getAmazonData(productFinal, minPrice, maxPrice);
-                                productInfoFromEachStore.push_back(amazonData[0]);
+				do {
+					string price1, price2, product1, product2, url1, url2;						
 
-                                submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
-                                productInfoFromEachStore.push_back(amazonData[1]);
-*/
-				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
-				cout << setw(20) << store1 << setw(30) << store1 << endl;
-				cout << setw(20) << store1/*PRECO1*/ << setw(30) << store1/*PRECO2*/ << endl;
-				cout << setw(20) << store1/*URL1*/  << setw(30) << store1/*URL2*/ << endl;
+					cout << "Indique o produto a ser buscado: ";
+					getline(cin, product);
+					cout << endl;				
+				
+					cout << "Informe a faixa de preço do produto procurado" << endl;
+					cout << "Menor preço da faixa: ";
+					cin >> minPrice;
+					cout << "Maior preço da faixa: ";
+					cin >> maxPrice;
+					cout << endl;			
+
+					char auxiliar[product.length()];
+					char *productFinal = auxiliar;
+					strToConstCharList(product, productFinal);
+
+					for(int cont = 0; cont < 2; cont++) {
+						switch(stores[cont]) {
+							case 1:{
+								storeData = getAmazonData(productFinal, minPrice, maxPrice);
+								productInfoFromEachStore.push_back(storeData[0]);
+							}break;
+							case 2:{
+							/*	storeData = getCasasBahiaData(productFinal, minPrice, maxPrice);*/
+							}break;
+							case 3:{
+								/*storeData = getAmericanasData(productFinal, minPrice, maxPrice);*/
+							}break;
+							case 4:{
+								/*storeData = getSubmarinoData(productFinal, minPrice, maxPrice);*/
+							}break;
+							default:
+								cout << "Opção de loja indisponivel." << endl;
+						}
+	
+						if(cont == 0) {
+							product1 = productInfoFromEachStore[0][0];
+                                                        price1 = productInfoFromEachStore[0][1];
+                                                        url1 = completeURL(productInfoFromEachStore[0]);
+                                                }
+                                                else {
+                                                        product2 = productInfoFromEachStore[1][0];
+                                                        price2 = productInfoFromEachStore[1][1];
+                                                        url2 = completeURL(productInfoFromEachStore[1]);
+						}
+					}
+							
+					
+					cout << "\n------------------------------------------------------" << endl;
+					cout <<                         "LOJA 1" << endl;
+					cout << "------------------------------------------------------" << endl;
+ 					cout << storesList[store1 - 1].name << endl; 
+                                        cout << product1 << endl;
+                                        cout << price1 << endl;
+                                        cout << url1 << endl;	
+
+					cout << endl;					
+
+					cout << "------------------------------------------------------" << endl;
+					cout <<                         "LOJA 2" << endl;
+					cout << "------------------------------------------------------" << endl;
+ 					cout << storesList[store2 - 1].name << endl; 
+                                        cout << product2 << endl;
+                                        cout << price2 << endl;
+                                        cout << url2 << endl;	
+					
+					cout << endl;
+
+					cout << "Aperte 0 para sair e 1 para fazer outra busca." << endl;
+					cin >> optionDW;						
+					
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					
+					productInfoFromEachStore.clear();
+
+				} while (optionDW != 0);
+				
+				cout << endl << endl;
+
 			}
 			break; 
 
