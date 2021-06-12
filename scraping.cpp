@@ -51,8 +51,6 @@ vector <vector<string>> getData (char* productName, float min, float max, string
 		funcInput = "getAmericanasItem";
 	} else if (storeName == "submarino") {
 		funcInput = "getSubmarinoItem";
-	} else {
-		funcInput = "getBahiaItem";
 	}
 
 	char funcTemp[funcInput.size()];
@@ -72,24 +70,15 @@ vector <vector<string>> getData (char* productName, float min, float max, string
 	for (size_t index = 0; index < result.size(); index++) {
 		vector <string> current = constCharToVectorStr (result[index]);
 
-		if (storeName == "mercado livre") {
-			try {
-				if (stof(current[1]) > min && stof(current[1]) < max) {
-					productsData.push_back (current); 
-				}
-			} catch (invalid_argument& e) {
-				cout << "Erro" << endl;
+		try {
+			if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
+				productsData.push_back (current); 
 			}
-		} else {
-			try {
-				if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
-					productsData.push_back (current); 
-				}
-			} catch (invalid_argument& e){
-				cout << "Valor invalido" << endl;
-			}
+		} catch (invalid_argument& e){
+			cout << "Valor invalido" << endl;
 		}
 	}
+	
 
 	return productsData;
 }

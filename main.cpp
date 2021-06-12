@@ -58,7 +58,7 @@ int main (int argc, char* argv[]) {
 	
 			case '1':{
 				vector<vector<string>> productInfoFromEachStore;
-				vector<vector<string>> amazonData, americanasData, submarinoData, mercadoLivreData;
+				vector<vector<string>> amazonData, americanasData, submarinoData;
 				float minPrice, maxPrice;
 				string product;				
 
@@ -93,9 +93,6 @@ int main (int argc, char* argv[]) {
 				submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
 				productInfoFromEachStore.push_back(submarinoData[0]);				
 
-				mercadoLivreData = getData(productFinal, minPrice, maxPrice, "mercado livre");
-				productInfoFromEachStore.push_back(mercadoLivreData[0]);
-				
 				float currentPrice;
 				bool found = false;
 				size_t index = 0;
@@ -103,12 +100,8 @@ int main (int argc, char* argv[]) {
 				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					
 					if(storesList[cont].isSelected() == 1 && found == false) {
-						if (cont == 3) {
-							currentPrice = stof (productInfoFromEachStore[cont][1]);
-						} else {
-							currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
-						}
-
+						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+						
 						found = true;
 					}
 				}
@@ -117,18 +110,10 @@ int main (int argc, char* argv[]) {
 				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					float comparePrice;
 
-					if (cont == 3) {
-						comparePrice = stof(productInfoFromEachStore[cont][1]);
-					} else {
-						comparePrice = strToFloat (productInfoFromEachStore[cont][1]);
-					}
+					comparePrice = strToFloat (productInfoFromEachStore[cont][1]);
 
 					if (currentPrice > comparePrice && storesList[cont].isSelected() == true /*&& found == true*/) {
-						if (cont == 3) {
-							currentPrice = stof (productInfoFromEachStore[cont][1]);
-						} else {
-							currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
-						}
+						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
 
                                                 index = cont;
 					}
