@@ -32,10 +32,9 @@ int main (int argc, char* argv[]) {
 	Menu menu;
 
 	Store amazon("Amazon");
-	Store submarino("Subamarino");
+	Store americanas("Americanas");
 
-	vector<Store> storesList{amazon, submarino}; 	
-	vector<vector<string>> productInfoFromEachStore;
+	vector<Store> storesList{amazon, americanas}; 
 
 	char option;
 
@@ -55,7 +54,8 @@ int main (int argc, char* argv[]) {
 		
 	
 			case '1':{
-				vector<vector<string>> amazonData, submarinoData;
+				vector<vector<string>> productInfoFromEachStore;
+				vector<vector<string>> amazonData, americanasData;
 				float minPrice, maxPrice;
 				string product;				
 
@@ -84,20 +84,20 @@ int main (int argc, char* argv[]) {
 				amazonData = getAmazonData(productFinal, minPrice, maxPrice);
 				productInfoFromEachStore.push_back(amazonData[0]);				
 
-				submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
+				americanasData = getAmazonData(productFinal, minPrice, maxPrice);
 				productInfoFromEachStore.push_back(amazonData[1]);				
 
 				float currentPrice = strToFloat(productInfoFromEachStore[0][1]);
 				size_t index = 0;
 				for (size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					
-					if(currentPrice < strToFloat(productInfoFromEachStore[cont][1])) 
-						currentPrice = currentPrice;
-						
-					else {
+					if(currentPrice > strToFloat(productInfoFromEachStore[cont][1]) && storesList[cont].isSelected() == true) {
 						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
 						index = cont;
 					}
+					else 
+						currentPrice = currentPrice;
+					
 				}
 
 				/*cout << currentPrice << " INDEX ->" << index << endl;*/
@@ -128,7 +128,7 @@ int main (int argc, char* argv[]) {
 				cout << "-------------------------------------------------" << endl;
 				cout << "Loja: " << storesList[index].name << endl;
 				cout << "Nome do produto: " << productInfoFromEachStore[index][0] << endl;
-				cout << "Preço: R$: "   << productInfoFromEachStore[index][1] <<endl; 
+				cout << "Preço: R$ "   << productInfoFromEachStore[index][1] <<endl; 
 				cout << "Link para pagina: " << completeURL(productInfoFromEachStore[index]) <<endl; 
 				cout << "_________________________________________________" << endl;
 
@@ -137,30 +137,79 @@ int main (int argc, char* argv[]) {
 			break;
 			
 
-		/*	case '2': {
+			case '2': {
+				char option1;
+				vector<vector<string>> productInfoFromEachStore, storeData;
+				string product;
+				float minPrice, maxPrice;
+	
 				cout << "________________________________________________" << endl;
 				cout << "		Lista de produtos" << endl;
 				cout << "------------------------------------------------" << endl;
-				cout << "Qual loja deseja selecionar para busca?: ";
-				getline(cin, product);
+				
+				for(size_t cont = 0; cont < storesList.size(); cont++) {
+					cout << cont + 1 << ": " << storesList[cont].name << endl;
+				}
+	
+				cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
+				cin >> option1;
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				
+				cout << endl;
 
 				cout << "Informe o nome do produto que deseja pesquisar: ";
 				getline(cin, product);
 				
-				cout << endl << endl;
+				cout << endl;
                                 
 				cout << "Informe a faixa de preço do produto procurado" << endl;
                                 cout << "Menor preço da faixa: ";
                                 cin >> minPrice;
                                 cout << "Maior preço da faixa: ";
                                 cin >> maxPrice;
+				cout << endl;			
 
                                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
- 
-                                cout << endl << endl;
-			
+
+				char auxiliar[product.length()];
+                                char *productFinal = auxiliar;
+                                strToConstCharList(product, productFinal);
+				
+				switch(option1) {
+					case '1':
+						storeData = getAmazonData(productFinal, minPrice, maxPrice);
+					break;
+					case '2':
+						/*storeData = getCasasBahiaData(productFinal, minPrice, maxPrice);*/
+					break;
+					case '3':
+						/*storeData = getAmericanasData(productFinal, minPrice, maxPrice);*/
+					break;
+					case '4':
+						/*storeData = getSubmarinoData(productFinal, minPrice, maxPrice);*/
+					break;
+					default:
+						cout << "Opção de loja indisponivel." << endl;
+
+				}
+
+				cout << "\n________________________________________________" << endl;
+				cout << "                       LISTA" << endl;
+				cout << "------------------------------------------------" << endl;
+				
+				for(size_t cont = 0; cont < storeData.size(); cont++) {
+					cout << "Nome do produto : " << storeData[cont][0] << endl;
+					cout << "Preço: R$ " << storeData[cont][1] << endl;
+					cout << "Link para pagina: " << completeURL(storeData[cont]) << endl;
+					cout << endl;
+				}
+
+				cout << "________________________________________________" << endl;
+                                
+				cout << endl << endl;
+			}	
 			break;
-*/
+
 
 			case '3':
 				char option1;
@@ -268,6 +317,7 @@ int main (int argc, char* argv[]) {
 
 			case '4':{
 				int store1, store2;
+				vector<vector<string>> productInfoFromEachStore;
 				float minPrice, maxPrice;
 				string product;
 	
@@ -300,7 +350,9 @@ int main (int argc, char* argv[]) {
 				char auxiliar[product.length()];
                                 char *productFinal = auxiliar;
                                 strToConstCharList(product, productFinal);
-                           /*   amazonData = getAmazonData(productFinal, minPrice, maxPrice);
+                          
+
+				 /*   amazonData = getAmazonData(productFinal, minPrice, maxPrice);
                                 productInfoFromEachStore.push_back(amazonData[0]);
 
                                 submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
