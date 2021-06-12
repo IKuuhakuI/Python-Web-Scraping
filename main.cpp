@@ -79,6 +79,7 @@ int main (int argc, char* argv[]) {
 				do {
 					string tempProduct;
 					cout << "Informe o nome do produto que deseja pesquisar: ";
+					// Pegar produto
 					getline(cin, tempProduct);
 						
 					int index = checkEmptySpaces (tempProduct);
@@ -213,6 +214,7 @@ int main (int argc, char* argv[]) {
 				vector<vector<string>> productInfoFromEachStore, storeData;
 				string product;
 				float minPrice, maxPrice;
+				string strMin, strMax;
 		
 				cout << "________________________________________________" << endl;
 				cout << "		Lista de produtos" << endl;
@@ -222,6 +224,7 @@ int main (int argc, char* argv[]) {
 					cout << cont + 1 << ": " << storesList[cont]->name << endl;
 				}
 		
+				cout << "------------------------------------------------" << endl;
 				cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
 				cin >> chooseStore;
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -245,13 +248,44 @@ int main (int argc, char* argv[]) {
 
 				cout << endl;
                               
-				cout << "Informe a faixa de preço do produto procurado" << endl;
+				bool isValid;
+	
+				do {
+					isValid = true;
+
+					cout << "Informe a faixa de preço do produto procurado" << endl;
+					cout << "Menor preço da faixa: ";
+					cin >> strMin;
+					cout << "Maior preço da faixa: ";
+					cin >> strMax;
+					
+						try {
+							minPrice = stof (strMin);
+							maxPrice = stof (strMax);
+
+							if (maxPrice <= minPrice) {
+								isValid = false;
+							}
+						} catch (invalid_argument& e) {
+							isValid = false;
+						}
+
+						if (!isValid) {
+							cout << "Precos invalidos!" << endl;
+						}
+
+						cout << endl;
+						
+				} while (!isValid);
+
+
+			/*	cout << "Informe a faixa de preço do produto procurado" << endl;
                        	        cout << "Menor preço da faixa: ";
 				cin >> minPrice;
 				cout << "Maior preço da faixa: ";
                                 cin >> maxPrice;
 				cout << endl;			
-
+*/
                                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 				char auxiliar[product.length()];
