@@ -41,7 +41,7 @@ vector <vector<string>> getAmazonData (char* productName, float min, float max) 
 		exit (-1);
 	}
 
-	PyObject* myFunction = PyObject_GetAttrString (myModule, (char*)"getItem");
+	PyObject* myFunction = PyObject_GetAttrString (myModule, (char*)"getAmazonItem");
 	PyObject* args = PyTuple_Pack (1, PyUnicode_FromString((char *)productName));
 
 	PyObject* myResult = PyObject_CallObject (myFunction, args);
