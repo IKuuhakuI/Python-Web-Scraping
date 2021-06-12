@@ -88,17 +88,19 @@ int main (int argc, char* argv[]) {
 				productInfoFromEachStore.push_back(amazonData[1]);				
 
 				float currentPrice = strToFloat(productInfoFromEachStore[0][1]);
+				size_t index = 0;
 				for (size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					
 					if(currentPrice < strToFloat(productInfoFromEachStore[cont][1])) 
 						currentPrice = currentPrice;
-
-					else
+						
+					else {
 						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
-
+						index = cont;
+					}
 				}
 
-				cout << currentPrice << endl;
+				/*cout << currentPrice << " INDEX ->" << index << endl;*/
 
 				/*for(size_t cont = 0; cont < amazonData.size(); cont++) {
 					cout << amazonData[cont][0] << endl;
@@ -123,17 +125,12 @@ int main (int argc, char* argv[]) {
 				
 				cout << endl << "-------------------------------------------------" << endl;
 				cout << "		Resultado da Busca" << endl;			
-
-				for(size_t cont = 0; cont < storesList.size(); cont ++) { 
-					if (storesList[cont].isSelected() == true) {
-						cout << "-------------------------------------------------" << endl;
-						cout << "Loja: " << storesList[cont].name << endl;
-						cout << "Nome do produto: " << productInfoFromEachStore[cont][0] << endl;
-						cout << "Preço: R$: " << productInfoFromEachStore[cont][1] <<endl; 
-						cout << "Link para pagina: " << completeURL(productInfoFromEachStore[cont]) <<endl; 
-						cout << "_________________________________________________" << endl;
-					}
-				}
+				cout << "-------------------------------------------------" << endl;
+				cout << "Loja: " << storesList[index].name << endl;
+				cout << "Nome do produto: " << productInfoFromEachStore[index][0] << endl;
+				cout << "Preço: R$: "   << productInfoFromEachStore[index][1] <<endl; 
+				cout << "Link para pagina: " << completeURL(productInfoFromEachStore[index]) <<endl; 
+				cout << "_________________________________________________" << endl;
 
 				cout << endl << endl;
 			}
