@@ -152,8 +152,6 @@ int main (int argc, char* argv[]) {
 
 					Product* amazonProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
 					productList.push_back(amazonProduct);				
-	
-					cout << " AQUI" << endl;
 				}
 
 				if ((*americanas).isSelected() == true) {
@@ -168,8 +166,6 @@ int main (int argc, char* argv[]) {
 
 					Product* americanasProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
 					productList.push_back(americanasProduct);				
-				
-					cout << "AQUI1" << endl;
 				}
 
 				if ((*submarino).isSelected() == true) {
@@ -698,6 +694,49 @@ int main (int argc, char* argv[]) {
 
 
 			case '5': {
+
+				bool goBack = false;
+
+				string selectedOption;
+
+				do {
+					cout << "______________________________________________________" << endl;
+					cout << "      		Lista de Desejos" << endl;
+					cout << "------------------------------------------------------" << endl;
+
+					for (size_t index = 0; index < wishList.size(); index++) {
+						cout << "[" << index + 1 << "] " << (*wishList[index]).getName() << endl;
+						cout << "------------------------------------------------------" << endl;
+					}
+
+					cout << endl;
+
+					cout << "Para remover um produto, informe o indice dele, para sair, digite 0" << endl;
+					cin >> selectedOption;						
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');				
+
+					if (selectedOption == "0") {
+						goBack = true;
+					} else {
+						int removeThis;
+
+						try {
+							removeThis = stoi (selectedOption);
+						
+							if ((size_t)removeThis <= wishList.size() && removeThis > 0) {
+								wishList.erase (wishList.begin() + removeThis-1);
+								cout << "Produto removido!" << endl;
+								fileWrite ("wishList.csv", wishList);	
+							} else {
+								cout << "Entrada invalida" << endl;
+							}
+						} catch (invalid_argument& e) {
+							cout << "Entrada invalida" << endl;
+						}
+					}
+	
+					cout << endl << endl;
+				} while (!goBack);
 			}
 			break;
 

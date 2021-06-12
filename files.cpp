@@ -75,14 +75,7 @@ void fileRead (string fileName, vector <Product*> &productList) {
 		string url = currentLine.substr (startUrl, endUrl - startUrl);
 		string store = currentLine.substr (startStore, endStore - startStore + 1);
 		
-		cout << name << endl;
-		cout << price << endl;
-		cout << url << endl;
-		cout << store << endl;
-
 		Product* newProduct = new Product (name, price, url, store);
-
-		cout << "Aqui" << endl;
 
 		productList.push_back (newProduct);
 	} 
