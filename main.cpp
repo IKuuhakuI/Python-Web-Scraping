@@ -48,10 +48,12 @@ int main (int argc, char* argv[]) {
 		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		
 		switch (option) {
+
 			case '0':
 				cout << "Saindo do programa..." << endl;
 			break;
-			
+		
+	
 			case '1':{
 				vector<vector<string>> amazonData, submarinoData;
 				float minPrice, maxPrice;
@@ -91,7 +93,7 @@ int main (int argc, char* argv[]) {
 					cout << amazonData[cont][1] << endl;
 					cout << amazonData[cont][2] << endl;
 					cout << amazonData[cont][3] << endl << endl;
-				} */
+				}*/
 
 				/*for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					cout << productInfoFromEachStore[cont][0] << endl;
@@ -125,7 +127,33 @@ int main (int argc, char* argv[]) {
 			}
 			break;
 			
-			case '2':
+
+		/*	case '2': {
+				cout << "________________________________________________" << endl;
+				cout << "		Lista de produtos" << endl;
+				cout << "------------------------------------------------" << endl;
+				cout << "Qual loja deseja selecionar para busca?: ";
+				getline(cin, product);
+
+				cout << "Informe o nome do produto que deseja pesquisar: ";
+				getline(cin, product);
+				
+				cout << endl << endl;
+                                
+				cout << "Informe a faixa de preço do produto procurado" << endl;
+                                cout << "Menor preço da faixa: ";
+                                cin >> minPrice;
+                                cout << "Maior preço da faixa: ";
+                                cin >> maxPrice;
+
+                                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+ 
+                                cout << endl << endl;
+			
+			break;
+*/
+
+			case '3':
 				char option1;
 
 				cout << "________________________________________________" << endl;
@@ -228,7 +256,8 @@ int main (int argc, char* argv[]) {
 
 			break;
 
-			case '3':{
+
+			case '4':{
 				int store1, store2;
 				float minPrice, maxPrice;
 				string product;
@@ -269,11 +298,18 @@ int main (int argc, char* argv[]) {
                                 productInfoFromEachStore.push_back(amazonData[1]);
 */
 				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
-				cout << setw(20) <<  << setw(30) <<  << endl;
+				cout << setw(20) << store1 << setw(30) << store1 << endl;
 				cout << setw(20) << store1/*PRECO1*/ << setw(30) << store1/*PRECO2*/ << endl;
 				cout << setw(20) << store1/*URL1*/  << setw(30) << store1/*URL2*/ << endl;
 			}
 			break; 
+
+
+			case '5': {
+
+			}
+			break;
+
 
 			default:
 				cout << "Opção invalida\n\n" << endl;		
