@@ -32,12 +32,11 @@ int main (int argc, char* argv[]) {
 	
 	Menu menu;
 
-	Store amazon("Amazon");
-	Store americanas("Americanas");
-	Store submarino("Submarino");
-	Store mercadoLivre("Mercado Livre");
+	Store *amazon = new Store ("amazon");
+	Store *americanas = new Store ("americanas");
+	Store *submarino = new Store ("submarino");
 
-	vector<Store> storesList{amazon, americanas, submarino, mercadoLivre};
+	vector<Store*> storesList{amazon, americanas, submarino};
 
 	char option;
 
@@ -63,6 +62,7 @@ int main (int argc, char* argv[]) {
 				vector<vector<string>> amazonData, americanasData, submarinoData;
 
 				// Faixa de preco
+				string strMin, strMax;
 				float minPrice, maxPrice;
 				string product;				
 
@@ -76,11 +76,31 @@ int main (int argc, char* argv[]) {
 				
 				cout << endl << endl;
 
-				cout << "Informe a faixa de preço do produto procurado" << endl;
-				cout << "Menor preço da faixa: ";
-				cin >> minPrice;
-				cout << "Maior preço da faixa: ";
-				cin >> maxPrice;
+				bool isValid;
+	
+				do {
+					isValid = true;
+
+					cout << "Informe a faixa de preço do produto procurado" << endl;
+					cout << "Menor preço da faixa: ";
+					cin >> strMin;
+					cout << "Maior preço da faixa: ";
+					cin >> strMax;
+					
+					try {
+						minPrice = stof (strMin);
+						maxPrice = stof (strMax);
+
+						if (maxPrice <= minPrice) {
+							isValid = false;
+						}
+					} catch (invalid_argument& e) {
+						cout << "Indices invalidos!" << endl;
+						isValid = false;
+					}
+
+
+				} while (isValid == false);
 
 				// Limpar o buffer de entrada
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
@@ -94,7 +114,7 @@ int main (int argc, char* argv[]) {
 
 				vector <Product*> productList;
 
-				if (amazon.isSelected() == true) {
+				if ((*amazon).isSelected() == true) {
 					amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
 
 					// [0] -> Nome do Produto | [1] -> Preco | [2] -> URL | [3] -> Nome da Loja
@@ -102,7 +122,7 @@ int main (int argc, char* argv[]) {
 					productList.push_back(amazonProduct);				
 				}
 
-				if (americanas.isSelected() == true) {
+				if ((*americanas).isSelected() == true) {
 					americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
 
 					// [0] -> Nome do Produto | [1] -> Preco | [2] -> URL | [3] -> Nome da Loja
@@ -110,7 +130,7 @@ int main (int argc, char* argv[]) {
 					productList.push_back(americanasProduct);				
 				}
 
-				if (submarino.isSelected() == true) {
+				if ((*submarino).isSelected() == true) {
 					submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
 
 					// [0] -> Nome do Produto | [1] -> Preco | [2] -> URL | [3] -> Nome da Loja
@@ -146,7 +166,8 @@ int main (int argc, char* argv[]) {
 			break;
 			
 
-			case '2': {
+			case '2': /*{
+				
 				char option1;
 				vector<vector<string>> productInfoFromEachStore, storeData;
 				string product;
@@ -195,7 +216,7 @@ int main (int argc, char* argv[]) {
 						storeData = getData(productFinal, minPrice, maxPrice, "submarino");
 					break;
 					case '4':
-						/*storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");*/
+						//storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");
 					break;
 					default:
 						cout << "Opção de loja indisponivel." << endl;
@@ -217,6 +238,8 @@ int main (int argc, char* argv[]) {
                                 
 				cout << endl << endl;
 			}	
+			*/
+			cout << "O JOGO" << endl;
 			break;
 
 
@@ -229,11 +252,11 @@ int main (int argc, char* argv[]) {
 				
 				for(size_t cont = 0; cont < storesList.size(); cont++) {
 
-					if (storesList[cont].isSelected() == true) {
-						cout << "[X] " << storesList[cont].name << endl;
+					if ((*(storesList[cont])).isSelected() == true) {
+						cout << "[X] " << (*(storesList[cont])).name << endl;
 					}
 					else {
-						cout << "[ ] " << storesList[cont].name << endl;
+						cout << "[ ] " << (*(storesList[cont])).name << endl;
 					}
 				}
 
@@ -256,8 +279,8 @@ int main (int argc, char* argv[]) {
 						int option2;
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
-							if (storesList[cont].isSelected() == false) {
-								cout << cont + 1 << ": " << storesList[cont].name << endl;
+							if ((*(storesList[cont])).isSelected() == false) {
+								cout << cont + 1 << ": " << (*(storesList[cont])).name << endl;
 								exist = true;
 							}
 						}
@@ -272,11 +295,11 @@ int main (int argc, char* argv[]) {
 							cin >> option2;
 
 							if(option2 != 0) {
-								storesList[option2 - 1].changeSelection();
+								(*(storesList[option2 - 1])).changeSelection();
 								cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
-							}
-							else
+							} else {
 								cout << endl << endl;
+							}
 						}
 					}
 					break;
@@ -290,8 +313,8 @@ int main (int argc, char* argv[]) {
 						int option2;
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
-							if (storesList[cont].isSelected() == true) {
-								cout << cont + 1 << ": " << storesList[cont].name << endl;
+							if ((*(storesList[cont])).isSelected() == true) {
+								cout << cont + 1 << ": " << (*(storesList[cont])).name << endl;
 								exist = true;
 							}
 						}
@@ -305,12 +328,11 @@ int main (int argc, char* argv[]) {
 							cin >> option2;
 
 							if(option2 != 0) {
-								storesList[option2 - 1].changeSelection();
+								(*(storesList[option2 - 1])).changeSelection();
 								cout << "\nLoja removida com sucesso!!\n" << endl << endl;
-								cout << storesList[option2 - 1].isSelected() << endl;
-							}
-							else
+							} else {
 								cout << endl << endl;
+							}
 						}
 					}
 					break;
@@ -325,7 +347,7 @@ int main (int argc, char* argv[]) {
 			break;
 
 
-			case '4':{
+			case '4': /*{
 				int store1, store2;
 				vector<vector<string>> productInfoFromEachStore, storeData;
 				float minPrice, maxPrice;
@@ -387,7 +409,7 @@ int main (int argc, char* argv[]) {
 								productInfoFromEachStore.push_back(storeData[0]);
 							}break;
 							case 4:{
-								/*storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");*/
+								//storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");
 						
 							}break;
 							default:
@@ -438,7 +460,8 @@ int main (int argc, char* argv[]) {
 				
 				cout << endl << endl;
 
-			}
+			}*/
+			cout << "Perdi" << endl;
 			break; 
 
 

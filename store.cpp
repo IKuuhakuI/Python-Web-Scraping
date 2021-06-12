@@ -20,10 +20,13 @@ bool Store::isSelected() {
 }
 
 void Store::changeSelection() {
-	if(selected == true)
+	if(selected == true) {
 		selected = false;
-	else
+	}
+
+	else {
 		selected = true;
+	}
 }
 
 

@@ -9,8 +9,7 @@
  * Decricao: Prototipo da struct Store
 */ 
 
-#ifndef STORE_H
-#define STORE_H
+#pragma once
 
 #include <string>
 
@@ -27,6 +26,3 @@ class Store {
 	private:
 		bool selected;
 };
-
-#endif
-
