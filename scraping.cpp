@@ -52,7 +52,7 @@ vector <vector<string>> getData (char* productName, float min, float max, string
 	} else if (storeName == "submarino") {
 		funcInput = "getSubmarinoItem";
 	} else {
-		funcInput = "getLivreItem";
+		funcInput = "getBahiaItem";
 	}
 
 	char funcTemp[funcInput.size()];
