@@ -23,6 +23,7 @@
 #include "scraping.h"
 #include "algorithms.h"
 #include "product.h"
+#include "files.h"
 
 using namespace std;
 
@@ -41,6 +42,10 @@ int main (int argc, char* argv[]) {
 	// Define a precisao para 2 casas decimais
 	cout << fixed;
 	cout << setprecision(2);
+
+	vector<Product*> wishList;
+
+	fileRead ("wishList.csv", wishList);
 
 	char option;
 
@@ -202,7 +207,27 @@ int main (int argc, char* argv[]) {
 					cout << "Preço: R$ "   << (*(productList[smallestIndex])).getPrice() <<endl; 
 					cout << "Link para pagina: " << (*(productList[smallestIndex])).getURL() <<endl; 
 					cout << "_________________________________________________" << endl;
+					
+					string addToWishList;
+					bool isSelected = false;
 
+					do {
+						cout << "Para adicionar o produto na lista de desejos, digite 1, para sair, digite 0" << endl;
+
+						getline (cin, addToWishList);
+
+						if (addToWishList == "1" or addToWishList == "0") {
+							isSelected = true;
+						} else {
+							cout << "Opcao invaldia" << endl;
+						}
+
+					} while (!isSelected);
+	
+					if (addToWishList == "1") {
+						wishList.push_back (productList[smallestIndex]);
+						fileWrite ("wishList.csv", wishList);	
+					}
 					cout << endl << endl;
 				}
 			}
@@ -673,7 +698,6 @@ int main (int argc, char* argv[]) {
 
 
 			case '5': {
-
 			}
 			break;
 

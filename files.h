@@ -20,4 +20,4 @@
 using namespace std;
 
 void fileWrite (string, vector <Product*>);
-void fileRead (string, vector <Product*>);
+void fileRead (string, vector <Product*> &);

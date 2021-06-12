@@ -11,6 +11,7 @@
 */ 
 
 #include <string>
+#include <iostream>
 
 #include "product.h"
 #include "algorithms.h"
@@ -21,8 +22,11 @@ Product::Product(string productName, string productPrice, string productUrl, str
 	name = productName;
 	store = storeName;
 
-
-	price = strToFloat(productPrice);
+	try {
+		price = stof (productPrice);
+	} catch (invalid_argument& e) {
+		price = strToFloat(productPrice);
+	}
 
 	url = productUrl;
 }

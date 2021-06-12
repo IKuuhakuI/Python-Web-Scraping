@@ -27,7 +27,7 @@ LFLAGS = -Wall
 
 # LAB 01 #################################
 WEBSCRAPINGOBJS = 	main.o scraping.o algorithms.o\
-		 	menu.o store.o product.o
+		 	menu.o store.o product.o files.o
 		    
 WEBSCRAPING = webScraping
 ##########################################
