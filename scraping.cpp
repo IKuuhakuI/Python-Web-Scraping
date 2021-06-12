@@ -33,7 +33,7 @@ vector <vector<string>> getData (char* productName, float min, float max, string
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append(\'.\')");
 	
-	PyObject* myModuleString = PyUnicode_FromString ((char *) "store");
+	PyObject* myModuleString = PyUnicode_FromString ((char *) "scraping");
 	PyObject* myModule = PyImport_Import (myModuleString);
 
 	if (myModule == NULL) {
