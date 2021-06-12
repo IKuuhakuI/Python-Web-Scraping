@@ -22,10 +22,11 @@ void Menu::showMenu () {
 	cout << "*******************************************************" <<endl;
 	cout << "Digite o numero correspondente a operacao desejada." << endl;
 	cout << "-------------------------------------------------------" << endl;
-	cout << "1: Buscar por produto" << endl
-	     << "2: Configurar lojas" << endl
-	     << "3: Comparacao de preco entre duas lojas" << endl
-	     << "4: Lista de desejos" << endl
+	cout << "1: Buscar por produto em lojas" << endl
+	     << "2: Ver lista de produtos em uma determinada loja" << endl;
+	     << "3: Configurar lojas" << endl
+	     << "4: Comparacao de preco entre duas lojas" << endl
+	     << "5: Lista de desejos" << endl
 	     << "0: Sair" << endl;
 	cout << "*******************************************************" << endl;
 }

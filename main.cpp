@@ -93,12 +93,12 @@ int main (int argc, char* argv[]) {
 					cout << amazonData[cont][3] << endl << endl;
 				} */
 
-				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
+				/*for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					cout << productInfoFromEachStore[cont][0] << endl;
 					cout << productInfoFromEachStore[cont][1] << endl;
 					cout << productInfoFromEachStore[cont][2] << endl;
 					cout << productInfoFromEachStore[cont][3] << endl;
-				}
+				}*/
 				
 				/*cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
 				cout << "(Opcional, caso não seja necessario, aperte enter)" << endl;
@@ -107,7 +107,7 @@ int main (int argc, char* argv[]) {
 				cout << endl;
 				*/
 				
-				cout << "-------------------------------------------------" << endl;
+				cout << endl << "-------------------------------------------------" << endl;
 				cout << "		Resultado da Busca" << endl;			
 
 				for(size_t cont = 0; cont < storesList.size(); cont ++) { 
@@ -230,6 +230,7 @@ int main (int argc, char* argv[]) {
 
 			case '3':{
 				int store1, store2;
+				float minPrice, maxPrice;
 				string product;
 	
 				cout << "______________________________________________________" << endl;
@@ -243,13 +244,32 @@ int main (int argc, char* argv[]) {
 				
 				cout << "Indique o produto a ser buscado: ";
 				getline(cin, product);
+				cout << endl;			
+	
+				cout << "Informe a faixa de preço do produto procurado" << endl;
+				cout << "Menor preço da faixa: ";
+				cin >> minPrice;
+				cout << "Maior preço da faixa: ";
+				cin >> maxPrice;
+				cout << endl;			
+	
 				cout << "Selecione a primeira loja (Indique o numero correspondente): ";
 				cin >> store1;
 				cout << "Selecione a segunda loja (Indique o numero correspondente): ";
 				cin >> store2;
+				cout << endl;
 
+				char auxiliar[product.length()];
+                                char *productFinal = auxiliar;
+                                strToConstCharList(product, productFinal);
+                           /*   amazonData = getAmazonData(productFinal, minPrice, maxPrice);
+                                productInfoFromEachStore.push_back(amazonData[0]);
+
+                                submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
+                                productInfoFromEachStore.push_back(amazonData[1]);
+*/
 				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
-				cout << setw(20) << store1/*NOME PROD 1*/ << setw(30) << store1/*NOME PROD 2*/ << endl;
+				cout << setw(20) <<  << setw(30) <<  << endl;
 				cout << setw(20) << store1/*PRECO1*/ << setw(30) << store1/*PRECO2*/ << endl;
 				cout << setw(20) << store1/*URL1*/  << setw(30) << store1/*URL2*/ << endl;
 			}
