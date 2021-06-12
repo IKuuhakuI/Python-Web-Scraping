@@ -223,7 +223,6 @@ int main (int argc, char* argv[]) {
 
 					if (index != -1) {
 						product = tempProduct.substr (index, tempProduct.size() - index);
-						cout << product << endl;
 						notEmpty = true;
 					}
 				} while (notEmpty == false);
@@ -292,12 +291,13 @@ int main (int argc, char* argv[]) {
 
 
 			case '3':
-				char option1;
+				char selectedOption;
 
 				cout << "________________________________________________" << endl;
 				cout << "		Configurar Lojas" << endl;
 				cout << "------------------------------------------------" << endl;
-				
+			
+				// Indica as lojas disponiveis	
 				for(size_t cont = 0; cont < storesList.size(); cont++) {
 
 					if ((*(storesList[cont])).isSelected() == true) {
@@ -314,17 +314,17 @@ int main (int argc, char* argv[]) {
 				cout << "3: Voltar" << endl;
 				cout << "------------------------------------------------" << endl;
 				cout << "Indique a opção selecionada: ";
-				cin >> option1;
+				cin >> selectedOption;
 				cout << "\n\n";
 					
-				switch(option1) {
+				switch (selectedOption) {
 					case '1': {
 						cout << "------------------------------------------------" << endl;
 						cout << "Lojas não selecionadas" << endl;
 						cout << "------------------------------------------------" << endl;
 						
 						bool exist = false;
-						int option2;
+						int selectedStore;
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
 							if ((*(storesList[cont])).isSelected() == false) {
@@ -333,21 +333,20 @@ int main (int argc, char* argv[]) {
 							}
 						}
 						
-						if(exist == false) {
+						if (exist == false) {
 							cout << "Não há lojas disponiveis. Todas as lojas já foram selecionadas. \n\n" << endl;
-						}
-						else {
+						} else {
 							cout << "0: Cancelar operação" << endl;
 							cout << "------------------------------------------------" << endl;
 							cout << "Qual loja deseja adicionar? (Indique o numero correspondente): ";
-							cin >> option2;
+							cin >> selectedStore;
 
-							if(option2 != 0) {
-								(*(storesList[option2 - 1])).changeSelection();
+							if (selectedStore != 0) {
+								(*(storesList[selectedStore - 1])).changeSelection();
 								cout << "\nLoja adicionada com sucesso!!\n" << endl << endl;
-							} else {
-								cout << endl << endl;
 							}
+
+							cout << endl << endl;
 						}
 					}
 					break;
@@ -358,7 +357,7 @@ int main (int argc, char* argv[]) {
 						cout << "------------------------------------------------" << endl;
 						
 						bool exist = false;
-						int option2;
+						int selectedStore;
 							
 						for(size_t cont = 0; cont < storesList.size(); cont++) {
 							if ((*(storesList[cont])).isSelected() == true) {
@@ -373,10 +372,10 @@ int main (int argc, char* argv[]) {
 							cout << "0: Cancelar operação" << endl;
 							cout << "------------------------------------------------" << endl;
 							cout << "Qual loja deseja remover? (Indique o numero correspondente): ";
-							cin >> option2;
+							cin >> selectedStore;
 
-							if(option2 != 0) {
-								(*(storesList[option2 - 1])).changeSelection();
+							if(selectedStore != 0) {
+								(*(storesList[selectedStore - 1])).changeSelection();
 								cout << "\nLoja removida com sucesso!!\n" << endl << endl;
 							} else {
 								cout << endl << endl;
