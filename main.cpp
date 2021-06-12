@@ -10,24 +10,32 @@
  *
 */ 
 
+#include <Python.h>
 #include <iostream>
 #include <vector>
 #include <string>
 #include <iomanip>
 #include <limits>
+#include <typeinfo>
 
 #include "menu.h"
 #include "store.h"
+#include "scraping.h"
+#include "algorithms.h"
+
 
 using namespace std;
 
-int main () {
+int main (int argc, char* argv[]) {
+	Py_Initialize();
 	
 	Menu menu;
 
 	Store amazon("Amazon");
+	Store submarino("Subamarino");
 
-	vector<Store> storesList{amazon}; 	
+	vector<Store> storesList{amazon, submarino}; 	
+	vector<vector<string>> productInfoFromEachStore;
 
 	char option;
 
@@ -40,13 +48,16 @@ int main () {
 		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		
 		switch (option) {
+
 			case '0':
 				cout << "Saindo do programa..." << endl;
 			break;
-			
+		
+	
 			case '1':{
+				vector<vector<string>> amazonData, submarinoData;
 				float minPrice, maxPrice;
-				string product, keyWord;				
+				string product;				
 
 				cout << "________________________________________________" << endl;
 				cout << "		Buscando por produto" << endl;
@@ -65,33 +76,84 @@ int main () {
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
 			
 				cout << endl << endl;
-	
-				cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
+
+				char auxiliar[product.length()];
+				char *productFinal = auxiliar;
+				strToConstCharList(product, productFinal);
+
+				amazonData = getAmazonData(productFinal, minPrice, maxPrice);
+				productInfoFromEachStore.push_back(amazonData[0]);				
+
+				submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
+				productInfoFromEachStore.push_back(amazonData[1]);				
+
+
+				/*for(size_t cont = 0; cont < amazonData.size(); cont++) {
+					cout << amazonData[cont][0] << endl;
+					cout << amazonData[cont][1] << endl;
+					cout << amazonData[cont][2] << endl;
+					cout << amazonData[cont][3] << endl << endl;
+				}*/
+
+				/*for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
+					cout << productInfoFromEachStore[cont][0] << endl;
+					cout << productInfoFromEachStore[cont][1] << endl;
+					cout << productInfoFromEachStore[cont][2] << endl;
+					cout << productInfoFromEachStore[cont][3] << endl;
+				}*/
+				
+				/*cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
 				cout << "(Opcional, caso não seja necessario, aperte enter)" << endl;
 				cout << "Palavra-chave: ";
 				getline(cin, keyWord);
 				cout << endl;
+				*/
 				
-
-						/* PYTHON AQUI - ACHAR PRODUTO/ PRECO/ URL */
-			
-				cout << "-------------------------------------------------" << endl;
+				cout << endl << "-------------------------------------------------" << endl;
 				cout << "		Resultado da Busca" << endl;			
 
 				for(size_t cont = 0; cont < storesList.size(); cont ++) { 
-					cout << "-------------------------------------------------" << endl;
-					cout << "Loja: " << storesList[cont].name << endl;
-					cout << "Nome do produto: " << product << endl;
-					cout << "Preço: R$: " << endl; /*AQUUUUUUUUUUUUI*/
-					cout << "Link para pagina: " << endl; /*AQUIIIIIIIIIIIIIIII*/
-					cout << "_________________________________________________" << endl;
+					if (storesList[cont].isSelected() == true) {
+						cout << "-------------------------------------------------" << endl;
+						cout << "Loja: " << storesList[cont].name << endl;
+						cout << "Nome do produto: " << productInfoFromEachStore[cont][0] << endl;
+						cout << "Preço: R$: " << productInfoFromEachStore[cont][1] <<endl; 
+						cout << "Link para pagina: " << completeURL(productInfoFromEachStore[cont]) <<endl; 
+						cout << "_________________________________________________" << endl;
+					}
 				}
 
 				cout << endl << endl;
 			}
 			break;
 			
-			case '2':
+
+		/*	case '2': {
+				cout << "________________________________________________" << endl;
+				cout << "		Lista de produtos" << endl;
+				cout << "------------------------------------------------" << endl;
+				cout << "Qual loja deseja selecionar para busca?: ";
+				getline(cin, product);
+
+				cout << "Informe o nome do produto que deseja pesquisar: ";
+				getline(cin, product);
+				
+				cout << endl << endl;
+                                
+				cout << "Informe a faixa de preço do produto procurado" << endl;
+                                cout << "Menor preço da faixa: ";
+                                cin >> minPrice;
+                                cout << "Maior preço da faixa: ";
+                                cin >> maxPrice;
+
+                                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+ 
+                                cout << endl << endl;
+			
+			break;
+*/
+
+			case '3':
 				char option1;
 
 				cout << "________________________________________________" << endl;
@@ -194,8 +256,10 @@ int main () {
 
 			break;
 
-			case '3':{
+
+			case '4':{
 				int store1, store2;
+				float minPrice, maxPrice;
 				string product;
 	
 				cout << "______________________________________________________" << endl;
@@ -209,23 +273,51 @@ int main () {
 				
 				cout << "Indique o produto a ser buscado: ";
 				getline(cin, product);
+				cout << endl;			
+	
+				cout << "Informe a faixa de preço do produto procurado" << endl;
+				cout << "Menor preço da faixa: ";
+				cin >> minPrice;
+				cout << "Maior preço da faixa: ";
+				cin >> maxPrice;
+				cout << endl;			
+	
 				cout << "Selecione a primeira loja (Indique o numero correspondente): ";
 				cin >> store1;
 				cout << "Selecione a segunda loja (Indique o numero correspondente): ";
 				cin >> store2;
+				cout << endl;
 
+				char auxiliar[product.length()];
+                                char *productFinal = auxiliar;
+                                strToConstCharList(product, productFinal);
+                           /*   amazonData = getAmazonData(productFinal, minPrice, maxPrice);
+                                productInfoFromEachStore.push_back(amazonData[0]);
+
+                                submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
+                                productInfoFromEachStore.push_back(amazonData[1]);
+*/
 				cout << setw(20) << storesList[store1 - 1].name << setw(30) << storesList[store2 - 1].name << endl;
-				cout << setw(20) << store1/*NOME PROD 1*/ << setw(30) << store1/*NOME PROD 2*/ << endl;
+				cout << setw(20) << store1 << setw(30) << store1 << endl;
 				cout << setw(20) << store1/*PRECO1*/ << setw(30) << store1/*PRECO2*/ << endl;
 				cout << setw(20) << store1/*URL1*/  << setw(30) << store1/*URL2*/ << endl;
 			}
 			break; 
 
+
+			case '5': {
+
+			}
+			break;
+
+
 			default:
-				cout << "Opção invalida" << endl;		
+				cout << "Opção invalida\n\n" << endl;		
 		}
 		
 	} while (option != '0');
 
+	Py_Finalize();
+	
 	return 0;
 }

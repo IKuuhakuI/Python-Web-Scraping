@@ -8,6 +8,14 @@
 
 using namespace std;
 
+string completeURL (vector<string> productList) {
+	string inicialURL = productList[2];
+	
+	string finalURL = "www." + productList[3] + ".com.br" + inicialURL;
+	
+	return finalURL;
+}
+
 void strToConstCharList (string incoming, char* &output) {
 
 	strcpy (output, incoming.c_str());
