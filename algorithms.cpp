@@ -73,3 +73,33 @@ vector<string> constCharToVectorStr (const char* incoming) {
 	result.push_back(store);
 	return result;
 }
+
+int checkEmptySpaces (string incoming) {
+	bool notEmpty = false;
+
+	size_t index = 0;
+
+	if (incoming == "") {
+		return -1;
+	} else if (incoming[0] != ' ') {
+		cout << "Aqui" << endl;
+		notEmpty = true;
+	}
+	
+	while (index < (incoming.size() - 1) && incoming[index] == ' ') {
+		if (incoming[index + 1] != ' ') {
+			cout << "Char: " << incoming[index + 1] << endl;
+			notEmpty = true;
+		}
+		index ++;
+	}
+
+	if (notEmpty == false) {
+		index = -1;
+	} else {
+		cout << "Index: " << index << endl;
+		cout << "Char: " << incoming[index] << endl;
+	}
+
+	return index;
+}

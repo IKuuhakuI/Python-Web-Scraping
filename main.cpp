@@ -91,131 +91,144 @@ int main (int argc, char* argv[]) {
 					cout << "Maior preço da faixa: ";
 					cin >> strMax;
 					
-					try {
-						minPrice = stof (strMin);
-						maxPrice = stof (strMax);
+						try {
+							minPrice = stof (strMin);
+							maxPrice = stof (strMax);
 
-						if (maxPrice <= minPrice) {
+							if (maxPrice <= minPrice) {
+								isValid = false;
+							}
+						} catch (invalid_argument& e) {
 							isValid = false;
 						}
-					} catch (invalid_argument& e) {
-						isValid = false;
-					}
 
-					if (!isValid) {
-						cout << "Precos invalidos!" << endl;
-					}
-
-				} while (!isValid);
-
-				// Limpar o buffer de entrada
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
-			
-				cout << endl << endl;
-
-				// Passar o nome do produto
-				char auxiliar[product.length()];
-				char *productFinal = auxiliar;
-				strToConstCharList(product, productFinal);
-
-				vector <Product*> productList;
-
-				string currentName, currentPrice, currentUrl, currentStore;
-	
-				if ((*amazon).isSelected() == true) {
-					amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
-
-					currentName = amazonData[0][0];
-					currentPrice = amazonData[0][1];
-					currentUrl = amazonData[0][2];
-					currentStore = amazonData[0][3];
-
-					currentUrl = completeURL (currentStore, currentUrl);
-
-					Product* amazonProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
-					productList.push_back(amazonProduct);				
-				}
-
-				if ((*americanas).isSelected() == true) {
-					americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
-
-					currentName = americanasData[0][0];
-					currentPrice = americanasData[0][1];
-					currentUrl = americanasData[0][2];
-					currentStore = americanasData[0][3];
-
-					currentUrl = completeURL (currentStore, currentUrl);
-
-					Product* americanasProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
-					productList.push_back(americanasProduct);				
-				}
-
-				if ((*submarino).isSelected() == true) {
-					submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
-		
-					currentName = submarinoData[0][0];
-					currentPrice = submarinoData[0][1];
-					currentUrl = submarinoData[0][2];
-					currentStore = submarinoData[0][3];
-
-					currentUrl = completeURL (currentStore, currentUrl);
-
-					Product* submarinoProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
-					productList.push_back(submarinoProduct);				
-				}
-				
-				if (productList.size() == 0) {
-					cout << "Erro: Nenhuma loja selecionada" << endl;
-				} else {
-					float smallestPrice = (*(productList[0])).getPrice();
-					size_t smallestIndex = 0;				
-
-					for (size_t index = 1; index < productList.size(); index++) {
-						if ((*(productList[index])).getPrice() < smallestPrice) {
-							smallestPrice = (*(productList[index])).getPrice();
-							smallestIndex = index;
+						if (!isValid) {
+							cout << "Precos invalidos!" << endl;
 						}
-					}
-	
-					cout << endl << "-------------------------------------------------" << endl;
-					cout << "		Resultado da Busca" << endl;			
-					cout << "-------------------------------------------------" << endl;
-					cout << "Loja: " << (*(productList[smallestIndex])).getStore() << endl;
-					cout << "Nome do produto: " << (*(productList[smallestIndex])).getName() << endl;
-					cout << "Preço: R$ "   << (*(productList[smallestIndex])).getPrice() <<endl; 
-					cout << "Link para pagina: " << (*(productList[smallestIndex])).getURL() <<endl; 
-					cout << "_________________________________________________" << endl;
 
+					} while (!isValid);
+
+					// Limpar o buffer de entrada
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');	
+				
 					cout << endl << endl;
-				}
-			}
-			break;
+
+					// Passar o nome do produto
+					char auxiliar[product.length()];
+					char *productFinal = auxiliar;
+					strToConstCharList(product, productFinal);
+
+					vector <Product*> productList;
+
+					string currentName, currentPrice, currentUrl, currentStore;
+		
+					if ((*amazon).isSelected() == true) {
+						amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
+
+						currentName = amazonData[0][0];
+						currentPrice = amazonData[0][1];
+						currentUrl = amazonData[0][2];
+						currentStore = amazonData[0][3];
+
+						currentUrl = completeURL (currentStore, currentUrl);
+
+						Product* amazonProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
+						productList.push_back(amazonProduct);				
+					}
+
+					if ((*americanas).isSelected() == true) {
+						americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
+
+						currentName = americanasData[0][0];
+						currentPrice = americanasData[0][1];
+						currentUrl = americanasData[0][2];
+						currentStore = americanasData[0][3];
+
+						currentUrl = completeURL (currentStore, currentUrl);
+
+						Product* americanasProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
+						productList.push_back(americanasProduct);				
+					}
+
+					if ((*submarino).isSelected() == true) {
+						submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
 			
+						currentName = submarinoData[0][0];
+						currentPrice = submarinoData[0][1];
+						currentUrl = submarinoData[0][2];
+						currentStore = submarinoData[0][3];
 
-			case '2': {
-				
-				char chooseStore;
-				vector<vector<string>> productInfoFromEachStore, storeData;
-				string product;
-				float minPrice, maxPrice;
-	
-				cout << "________________________________________________" << endl;
-				cout << "		Lista de produtos" << endl;
-				cout << "------------------------------------------------" << endl;
-				
-				for(size_t cont = 0; cont < storesList.size(); cont++) {
-					cout << cont + 1 << ": " << storesList[cont]->name << endl;
+						currentUrl = completeURL (currentStore, currentUrl);
+
+						Product* submarinoProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
+						productList.push_back(submarinoProduct);				
+					}
+					
+					if (productList.size() == 0) {
+						cout << "Erro: Nenhuma loja selecionada" << endl;
+					} else {
+						float smallestPrice = (*(productList[0])).getPrice();
+						size_t smallestIndex = 0;				
+
+						for (size_t index = 1; index < productList.size(); index++) {
+							if ((*(productList[index])).getPrice() < smallestPrice) {
+								smallestPrice = (*(productList[index])).getPrice();
+								smallestIndex = index;
+							}
+						}
+		
+						cout << endl << "-------------------------------------------------" << endl;
+						cout << "		Resultado da Busca" << endl;			
+						cout << "-------------------------------------------------" << endl;
+						cout << "Loja: " << (*(productList[smallestIndex])).getStore() << endl;
+						cout << "Nome do produto: " << (*(productList[smallestIndex])).getName() << endl;
+						cout << "Preço: R$ "   << (*(productList[smallestIndex])).getPrice() <<endl; 
+						cout << "Link para pagina: " << (*(productList[smallestIndex])).getURL() <<endl; 
+						cout << "_________________________________________________" << endl;
+
+						cout << endl << endl;
+					}
 				}
-	
-				cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
-				cin >> chooseStore;
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				break;
 				
-				cout << endl;
+				case '2': {
+					
+					char chooseStore;
+					vector<vector<string>> productInfoFromEachStore, storeData;
+					string product;
+					float minPrice, maxPrice;
+		
+					cout << "________________________________________________" << endl;
+					cout << "		Lista de produtos" << endl;
+					cout << "------------------------------------------------" << endl;
+					
+					for(size_t cont = 0; cont < storesList.size(); cont++) {
+						cout << cont + 1 << ": " << storesList[cont]->name << endl;
+					}
+		
+					cout << "Qual loja deseja selecionar para busca? (Indique pelo numero): ";
+					cin >> chooseStore;
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					
+					cout << endl;
 
-				cout << "Informe o nome do produto que deseja pesquisar: ";
-				getline(cin, product);
-				
+					bool notEmpty = false;
+
+					do {
+						string tempProduct;
+						cout << "Informe o nome do produto que deseja pesquisar: ";
+						getline(cin, tempProduct);
+						
+						int index = checkEmptySpaces (tempProduct);
+
+						if (index != -1) {
+							product = tempProduct.substr (index, tempProduct.size() - index);
+							cout << product << endl;
+							notEmpty = true;
+						}
+
+				} while (notEmpty == false);
+
 				cout << endl;
                                 
 				cout << "Informe a faixa de preço do produto procurado" << endl;
