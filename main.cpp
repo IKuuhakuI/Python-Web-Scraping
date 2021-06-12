@@ -27,14 +27,17 @@
 using namespace std;
 
 int main (int argc, char* argv[]) {
+
 	Py_Initialize();
 	
 	Menu menu;
 
 	Store amazon("Amazon");
 	Store americanas("Americanas");
+	Store submarino("Submarino");
+	Store casasBahia("Casas Bahia");
 
-	vector<Store> storesList{amazon, americanas}; 
+	vector<Store> storesList{amazon, americanas, submarino, casasBahia};
 
 	char option;
 
@@ -55,7 +58,7 @@ int main (int argc, char* argv[]) {
 	
 			case '1':{
 				vector<vector<string>> productInfoFromEachStore;
-				vector<vector<string>> amazonData, americanasData;
+				vector<vector<string>> amazonData, americanasData, submarinoData;
 				float minPrice, maxPrice;
 				string product;				
 
@@ -81,26 +84,38 @@ int main (int argc, char* argv[]) {
 				char *productFinal = auxiliar;
 				strToConstCharList(product, productFinal);
 
-				amazonData = getAmazonData(productFinal, minPrice, maxPrice);
+				amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
 				productInfoFromEachStore.push_back(amazonData[0]);				
 
-				americanasData = getAmazonData(productFinal, minPrice, maxPrice);
-				productInfoFromEachStore.push_back(amazonData[1]);				
+				americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
+				productInfoFromEachStore.push_back(americanasData[0]);				
 
-				float currentPrice = strToFloat(productInfoFromEachStore[0][1]);
+				submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
+				productInfoFromEachStore.push_back(submarinoData[0]);				
+
+				/*casasBahiaData = getData(productFinal, minPrice, maxPrice, "casasBahia");
+				productInfoFromEachStore.push_back(casasBahiaData[0]);	*/			
+				
+				float currentPrice;
+				bool found = false;
 				size_t index = 0;
-				for (size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
-					
-					if(currentPrice > strToFloat(productInfoFromEachStore[cont][1]) && storesList[cont].isSelected() == true) {
-						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
-						index = cont;
-					}
-					else 
-						currentPrice = currentPrice;
-					
-				}
 
-				/*cout << currentPrice << " INDEX ->" << index << endl;*/
+				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
+					
+					if(storesList[cont].isSelected() == true && found == false) {
+						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+						found = true;
+					}
+
+					if (currentPrice> strToFloat(productInfoFromEachStore[cont][1]) && storesList[cont].isSelected() == true && found == true) {
+						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+                                                index = cont;
+					}
+					
+					else
+						currentPrice = currentPrice;	
+				}
+					
 
 				/*for(size_t cont = 0; cont < amazonData.size(); cont++) {
 					cout << amazonData[cont][0] << endl;
@@ -115,13 +130,6 @@ int main (int argc, char* argv[]) {
 					cout << productInfoFromEachStore[cont][2] << endl;
 					cout << productInfoFromEachStore[cont][3] << endl;
 				}*/
-				
-				/*cout << "Caso deseje, adicione uma palavra-chave para auxiliar na busca" << endl;
-				cout << "(Opcional, caso não seja necessario, aperte enter)" << endl;
-				cout << "Palavra-chave: ";
-				getline(cin, keyWord);
-				cout << endl;
-				*/
 				
 				cout << endl << "-------------------------------------------------" << endl;
 				cout << "		Resultado da Busca" << endl;			
@@ -177,16 +185,16 @@ int main (int argc, char* argv[]) {
 				
 				switch(option1) {
 					case '1':
-						storeData = getAmazonData(productFinal, minPrice, maxPrice);
+						storeData = getData(productFinal, minPrice, maxPrice, "amazon");
 					break;
 					case '2':
-						/*storeData = getCasasBahiaData(productFinal, minPrice, maxPrice);*/
+						storeData = getData(productFinal, minPrice, maxPrice, "americanas");
 					break;
 					case '3':
-						/*storeData = getAmericanasData(productFinal, minPrice, maxPrice);*/
+						storeData = getData(productFinal, minPrice, maxPrice, "submarino");
 					break;
 					case '4':
-						/*storeData = getSubmarinoData(productFinal, minPrice, maxPrice);*/
+						/*storeData = getData(productFinal, minPrice, maxPrice, "casasBahia");*/
 					break;
 					default:
 						cout << "Opção de loja indisponivel." << endl;
@@ -365,17 +373,20 @@ int main (int argc, char* argv[]) {
 					for(int cont = 0; cont < 2; cont++) {
 						switch(stores[cont]) {
 							case 1:{
-								storeData = getAmazonData(productFinal, minPrice, maxPrice);
+								storeData = getData(productFinal, minPrice, maxPrice, "amazon");
 								productInfoFromEachStore.push_back(storeData[0]);
 							}break;
 							case 2:{
-							/*	storeData = getCasasBahiaData(productFinal, minPrice, maxPrice);*/
+								storeData = getData(productFinal, minPrice, maxPrice, "americanas");
+								productInfoFromEachStore.push_back(storeData[0]);
 							}break;
 							case 3:{
-								/*storeData = getAmericanasData(productFinal, minPrice, maxPrice);*/
+								storeData = getData(productFinal, minPrice, maxPrice, "submarino");
+								productInfoFromEachStore.push_back(storeData[0]);
 							}break;
 							case 4:{
-								/*storeData = getSubmarinoData(productFinal, minPrice, maxPrice);*/
+								/*storeData = getData(productFinal, minPrice, maxPrice, "casasBahia");*/
+						
 							}break;
 							default:
 								cout << "Opção de loja indisponivel." << endl;
