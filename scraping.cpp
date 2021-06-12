@@ -30,11 +30,10 @@ vector<const char*> pyTupleToVector (PyObject* incoming) {
 
 
 vector <vector<string>> getAmazonData (char* productName, float min, float max) {
-	// Py_Initialize();  
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append(\'.\')");
 	
-	PyObject* myModuleString = PyUnicode_FromString ((char *) "amazon");
+	PyObject* myModuleString = PyUnicode_FromString ((char *) "store");
 	PyObject* myModule = PyImport_Import (myModuleString);
 
 	if (myModule == NULL) {
@@ -49,15 +48,19 @@ vector <vector<string>> getAmazonData (char* productName, float min, float max) 
 
 	vector <const char*> result = pyTupleToVector (myResult);
 
-	// Py_Finalize();
 
 	vector<vector<string>> productsData; 
+
 
 	for (size_t index = 0; index < result.size(); index++) {
 		vector <string> current = constCharToVectorStr (result[index]);
 
-		if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
-			productsData.push_back (current); 
+		try {
+			if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
+				productsData.push_back (current); 
+			}
+		} catch (invalid_argument& e){
+			cout << "Valor invalido" << endl;
 		}
 	}
 
