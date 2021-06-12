@@ -394,9 +394,11 @@ int main (int argc, char* argv[]) {
 			break;
 
 
-			case '4': /*{
+			case '4': {
 				int store1, store2;
-				vector<vector<string>> productInfoFromEachStore, storeData;
+
+				vector<vector<string>> storeData;
+
 				float minPrice, maxPrice;
 				string product;
 	
@@ -405,7 +407,7 @@ int main (int argc, char* argv[]) {
 				cout << "------------------------------------------------------" << endl;
 				
 				for(size_t cont = 0; cont < storesList.size(); cont++) {
-					cout << cont + 1 << ": " << storesList[cont].name << endl;
+					cout << cont + 1 << ": " << storesList[cont]->name << endl;
 				}
 				cout << "------------------------------------------------------" << endl;
 				
@@ -424,7 +426,8 @@ int main (int argc, char* argv[]) {
 				int optionDW;
 
 				do {
-					string price1, price2, product1, product2, url1, url2;						
+					string product1, product2, url1, url2;						
+					float price1, price2;
 
 					cout << "Indique o produto a ser buscado: ";
 					getline(cin, product);
@@ -441,37 +444,62 @@ int main (int argc, char* argv[]) {
 					char *productFinal = auxiliar;
 					strToConstCharList(product, productFinal);
 
+					vector <Product*> productList;
+
 					for(int cont = 0; cont < 2; cont++) {
 						switch(stores[cont]) {
 							case 1:{
 								storeData = getData(productFinal, minPrice, maxPrice, "amazon");
-								productInfoFromEachStore.push_back(storeData[0]);
+
+								string productName = storeData[0][0];
+								string productPrice = storeData[0][1];
+								string storeName = storeData[0][3];
+
+								string productUrl = completeURL (storeName, storeData[0][2]); 
+
+								Product* newProduct = new Product (productName, productPrice, productUrl, storeName);
+								productList.push_back (newProduct);
 							}break;
+
 							case 2:{
 								storeData = getData(productFinal, minPrice, maxPrice, "americanas");
-								productInfoFromEachStore.push_back(storeData[0]);
+
+								string productName = storeData[0][0];
+								string productPrice = storeData[0][1];
+								string storeName = storeData[0][3];
+
+								string productUrl = completeURL (storeName, storeData[0][2]); 
+
+								Product* newProduct = new Product (productName, productPrice, productUrl, storeName);
+								productList.push_back (newProduct);
 							}break;
+
 							case 3:{
 								storeData = getData(productFinal, minPrice, maxPrice, "submarino");
-								productInfoFromEachStore.push_back(storeData[0]);
+
+								string productName = storeData[0][0];
+								string productPrice = storeData[0][1];
+								string storeName = storeData[0][3];
+
+								string productUrl = completeURL (storeName, storeData[0][2]); 
+
+								Product* newProduct = new Product (productName, productPrice, productUrl, storeName);
+								productList.push_back (newProduct);
 							}break;
-							case 4:{
-								//storeData = getData(productFinal, minPrice, maxPrice, "mercado livre");
-						
-							}break;
+
 							default:
 								cout << "Opção de loja indisponivel." << endl;
 						}
 	
 						if(cont == 0) {
-							product1 = productInfoFromEachStore[0][0];
-                                                        price1 = productInfoFromEachStore[0][1];
-                                                        url1 = completeURL(productInfoFromEachStore[0]);
+							product1 = (*productList[cont]).getName();
+                                                        price1 = (*productList[cont]).getPrice();
+                                                        url1 = (*productList[cont]).getURL();
                                                 }
                                                 else {
-                                                        product2 = productInfoFromEachStore[1][0];
-                                                        price2 = productInfoFromEachStore[1][1];
-                                                        url2 = completeURL(productInfoFromEachStore[1]);
+							product2 = (*productList[cont]).getName();
+                                                        price2 = (*productList[cont]).getPrice();
+                                                        url2 = (*productList[cont]).getURL();
 						}
 					}
 							
@@ -479,7 +507,7 @@ int main (int argc, char* argv[]) {
 					cout << "\n------------------------------------------------------" << endl;
 					cout <<                         "LOJA 1" << endl;
 					cout << "------------------------------------------------------" << endl;
- 					cout << storesList[store1 - 1].name << endl; 
+ 					cout << storesList[store1 - 1]->name << endl; 
                                         cout << product1 << endl;
                                         cout << price1 << endl;
                                         cout << url1 << endl;	
@@ -489,7 +517,7 @@ int main (int argc, char* argv[]) {
 					cout << "------------------------------------------------------" << endl;
 					cout <<                         "LOJA 2" << endl;
 					cout << "------------------------------------------------------" << endl;
- 					cout << storesList[store2 - 1].name << endl; 
+ 					cout << storesList[store2 - 1]->name << endl; 
                                         cout << product2 << endl;
                                         cout << price2 << endl;
                                         cout << url2 << endl;	
@@ -501,14 +529,12 @@ int main (int argc, char* argv[]) {
 					
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 					
-					productInfoFromEachStore.clear();
-
 				} while (optionDW != 0);
 				
 				cout << endl << endl;
 
-			}*/
-			cout << "Perdi" << endl;
+			}
+			
 			break; 
 
 
