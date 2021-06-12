@@ -9,10 +9,15 @@
 using namespace std;
 
 string completeURL (vector<string> productList) {
-	string inicialURL = productList[2];
+	string initialURL = productList[2];
+	string finalURL;
 	
-	string finalURL = "www." + productList[3] + ".com.br" + inicialURL;
-	
+	if (productList[3] == "mercado livre") {
+		finalURL = productList[2];	
+	} else {
+		string finalURL = "www." + productList[3] + ".com.br" + initialURL;
+	}	
+
 	return finalURL;
 }
 

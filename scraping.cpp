@@ -30,6 +30,8 @@ vector<const char*> pyTupleToVector (PyObject* incoming) {
 
 
 vector <vector<string>> getData (char* productName, float min, float max, string storeName) {
+
+	cout << storeName << endl;
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append(\'.\')");
 	
@@ -65,19 +67,27 @@ vector <vector<string>> getData (char* productName, float min, float max, string
 
 	vector <const char*> result = pyTupleToVector (myResult);
 
-
 	vector<vector<string>> productsData; 
-
 
 	for (size_t index = 0; index < result.size(); index++) {
 		vector <string> current = constCharToVectorStr (result[index]);
 
-		try {
-			if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
-				productsData.push_back (current); 
+		if (storeName == "mercado livre") {
+			try {
+				if (stof(current[1]) > min && stof(current[1]) < max) {
+					productsData.push_back (current); 
+				}
+			} catch (invalid_argument& e) {
+				cout << "Erro" << endl;
 			}
-		} catch (invalid_argument& e){
-			cout << "Valor invalido" << endl;
+		} else {
+			try {
+				if (strToFloat(current[1]) > min && strToFloat(current[1]) < max) {
+					productsData.push_back (current); 
+				}
+			} catch (invalid_argument& e){
+				cout << "Valor invalido" << endl;
+			}
 		}
 	}
 

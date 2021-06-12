@@ -58,7 +58,7 @@ int main (int argc, char* argv[]) {
 	
 			case '1':{
 				vector<vector<string>> productInfoFromEachStore;
-				vector<vector<string>> amazonData, americanasData, submarinoData;
+				vector<vector<string>> amazonData, americanasData, submarinoData, mercadoLivreData;
 				float minPrice, maxPrice;
 				string product;				
 
@@ -93,32 +93,48 @@ int main (int argc, char* argv[]) {
 				submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
 				productInfoFromEachStore.push_back(submarinoData[0]);				
 
-				/*mercadoLivreData = getData(productFinal, minPrice, maxPrice, "mercado livre");
-				productInfoFromEachStore.push_back(mercadoLivreData[0]);	*/			
+				mercadoLivreData = getData(productFinal, minPrice, maxPrice, "mercado livre");
+				productInfoFromEachStore.push_back(mercadoLivreData[0]);
 				
 				float currentPrice;
 				bool found = false;
 				size_t index = 0;
-				
-				cout << storesList[0].isSelected() << endl;
 
 				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
 					
 					if(storesList[cont].isSelected() == 1 && found == false) {
-						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+						if (cont == 3) {
+							currentPrice = stof (productInfoFromEachStore[cont][1]);
+						} else {
+							currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+						}
+
 						found = true;
-						cout << "AQUI" << endl;
 					}
 				}
 
+
 				for(size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
-					if (currentPrice> strToFloat(productInfoFromEachStore[cont][1]) && storesList[cont].isSelected() == true /*&& found == true*/) {
-						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+					float comparePrice;
+
+					if (cont == 3) {
+						comparePrice = stof(productInfoFromEachStore[cont][1]);
+					} else {
+						comparePrice = strToFloat (productInfoFromEachStore[cont][1]);
+					}
+
+					if (currentPrice > comparePrice && storesList[cont].isSelected() == true /*&& found == true*/) {
+						if (cont == 3) {
+							currentPrice = stof (productInfoFromEachStore[cont][1]);
+						} else {
+							currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+						}
+
                                                 index = cont;
 					}
 					
-					else
-						currentPrice = currentPrice;	
+					//else
+					//	currentPrice = currentPrice;	
 				}
 					
 
