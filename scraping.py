@@ -16,15 +16,57 @@ def getUrl (searchTerm, loja):
 		template = 'https://www.submarino.com.br/busca/{}'
 		searchTerm = searchTerm.replace (' ', '-')
 
+	elif (loja == 'mercado livre'):
+		template = 'https://lista.mercadolivre.com.br/{}'	
+		searchTerm = searchTerm.replace (' ', '-')
+
 	return template.format(searchTerm)
+
+def getLivreItem (item):
+	gotContent = False
+
+	print ('Aguarde...')
+	while (gotContent == False):
+		url = getUrl(item, 'mercado livre')
+		headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
+
+		html_text = requests.get(url, headers=headers).text
+		soup = BeautifulSoup (html_text ,'lxml')
+		products = soup.find_all ('div', class_ = 'andes-card andes-card--flat andes-card--default ui-search-result ui-search-result--core andes-card--padding-default')
+		if (products != []):
+			gotContent = True
+
+	productList = []
+
+	for product in products:
+		name = product.find('h2', class_ = 'ui-search-item__title').text
+
+		productLink = ""
+
+		price = True
+		for a in product.find_all('a', href=True):
+			productLink = a['href']
+			break
+
+		try:		
+			currentPrice = product.find ('span', class_ = 'price-tag-fraction').text
+
+		except:
+			price = False
+
+		if price == True:	
+			currentProduct = (name, currentPrice, productLink, "mercado livre")
+			productList.append (currentProduct)
+
+	return tuple(productList)
 
 def getSubmarinoItem (item):
 	gotContent = False
 
+	print ('Aguarde...')
+
 	while (gotContent == False):
 		url = getUrl(item, 'submarino')
-		print (url)
-		print ('Aguarde...')
 		headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
 		html_text = requests.get(url, headers=headers).text
@@ -66,10 +108,9 @@ def getSubmarinoItem (item):
 def getAmericanasItem (item):
 	gotContent = False
 
+	print ('Aguarde...')
 	while (gotContent == False):
 		url = getUrl(item, 'americanas')
-		print (url)
-		print ('Aguarde...')
 		headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
 		html_text = requests.get(url, headers=headers).text
@@ -110,10 +151,11 @@ def getAmericanasItem (item):
 def getAmazonItem (item):
 	gotContent = False
 
+	print ('Aguarde...')
+
 	while (gotContent == False):
 		url = getUrl(item, 'amazon')
 
-		print ('Aguarde...')
 		html_text = requests.get(url).text
 		soup = BeautifulSoup (html_text, 'lxml')
 		products = soup.find_all ('div', class_ = 'sg-col-4-of-12 s-result-item s-asin sg-col-4-of-16 sg-col sg-col-4-of-20')
@@ -145,4 +187,4 @@ def getAmazonItem (item):
 
 	return tuple(productList)
 
-#print(getSubmarinoItem ('Iphone X'))
+#print(getLivreItem ('Iphone X'))
