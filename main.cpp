@@ -502,7 +502,8 @@ int main (int argc, char* argv[]) {
 				do {
 					string product1, product2, url1, url2;						
 					float price1, price2;
-	
+					string strMin, strMax;
+					
 					bool notEmpty = false;
 		
 					do {
@@ -517,13 +518,37 @@ int main (int argc, char* argv[]) {
 							notEmpty = true;
 						}
 					} while (notEmpty == false);
+					
 
-					cout << "Informe a faixa de preço do produto procurado" << endl;
-					cout << "Menor preço da faixa: ";
-					cin >> minPrice;
-					cout << "Maior preço da faixa: ";
-					cin >> maxPrice;
-					cout << endl;			
+					bool isValid;
+	
+					do {
+						isValid = true;
+	
+						cout << "Informe a faixa de preço do produto procurado" << endl;
+						cout << "Menor preço da faixa: ";
+						cin >> strMin;
+						cout << "Maior preço da faixa: ";
+						cin >> strMax;
+					
+							try {
+								minPrice = stof (strMin);
+								maxPrice = stof (strMax);
+
+								if (maxPrice <= minPrice) {
+									isValid = false;
+								}
+							} catch (invalid_argument& e) {
+								isValid = false;
+							}
+
+							if (!isValid) {
+								cout << "Precos invalidos!" << endl;
+							}
+	
+							cout << endl;
+						
+					} while (!isValid);
 
 					char auxiliar[product.length()];
 					char *productFinal = auxiliar;
