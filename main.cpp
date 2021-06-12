@@ -87,6 +87,18 @@ int main (int argc, char* argv[]) {
 				submarinoData = getAmazonData(productFinal, minPrice, maxPrice);
 				productInfoFromEachStore.push_back(amazonData[1]);				
 
+				float currentPrice = strToFloat(productInfoFromEachStore[0][1]);
+				for (size_t cont = 0; cont < productInfoFromEachStore.size(); cont++) {
+					
+					if(currentPrice < strToFloat(productInfoFromEachStore[cont][1])) 
+						currentPrice = currentPrice;
+
+					else
+						currentPrice = strToFloat(productInfoFromEachStore[cont][1]);
+
+				}
+
+				cout << currentPrice << endl;
 
 				/*for(size_t cont = 0; cont < amazonData.size(); cont++) {
 					cout << amazonData[cont][0] << endl;
