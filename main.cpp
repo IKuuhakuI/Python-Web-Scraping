@@ -502,11 +502,22 @@ int main (int argc, char* argv[]) {
 				do {
 					string product1, product2, url1, url2;						
 					float price1, price2;
+	
+					bool notEmpty = false;
+		
+					do {
+						string tempProduct;
+						cout << "Informe o nome do produto que deseja pesquisar: ";
+						getline(cin, tempProduct);
+						
+						int index = checkEmptySpaces (tempProduct);
+	
+						if (index != -1) {
+							product = tempProduct.substr (index, tempProduct.size() - index);
+							notEmpty = true;
+						}
+					} while (notEmpty == false);
 
-					cout << "Indique o produto a ser buscado: ";
-					getline(cin, product);
-					cout << endl;				
-				
 					cout << "Informe a faixa de preço do produto procurado" << endl;
 					cout << "Menor preço da faixa: ";
 					cin >> minPrice;
