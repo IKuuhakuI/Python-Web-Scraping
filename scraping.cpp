@@ -29,7 +29,7 @@ vector<const char*> pyTupleToVector (PyObject* incoming) {
 }
 
 
-vector <vector<string>> getAmazonData (char* productName, float min, float max) {
+vector <vector<string>> getData (char* productName, float min, float max, string storeName) {
 	PyRun_SimpleString("import sys");
 	PyRun_SimpleString("sys.path.append(\'.\')");
 	
@@ -41,7 +41,20 @@ vector <vector<string>> getAmazonData (char* productName, float min, float max) 
 		exit (-1);
 	}
 
-	PyObject* myFunction = PyObject_GetAttrString (myModule, (char*)"getAmazonItem");
+	string funcInput;
+
+	if (storeName == "amazon") {
+		funcInput = "getAmazonItem";
+	} else {
+		funcInput = "getAmericanasItem";
+	}
+
+	char funcTemp[funcInput.size()];
+	char* funcName = funcTemp;
+
+	strToConstCharList (funcInput, funcName);
+
+	PyObject* myFunction = PyObject_GetAttrString (myModule, (char*)funcName);
 	PyObject* args = PyTuple_Pack (1, PyUnicode_FromString((char *)productName));
 
 	PyObject* myResult = PyObject_CallObject (myFunction, args);
