@@ -10,24 +10,23 @@
  *
 */
 
-#ifndef PRODUTO_H
-#define PRODUTO_H
+#pragma once
 
 #include <string>
 #include <vector>
 
-class Produto {
+using namespace std;
+
+class Product {
 	public:
-		Produto(string, string, float, string);
+		Product (string, string, string, string);
 		
 		string getName();
 		string getStore();
 		float getPrice();
-		string getURL():
+		string getURL();
 
 	private:
 		string name, store, url;
 		float price;
 };
-
-#endif 

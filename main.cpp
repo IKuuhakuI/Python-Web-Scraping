@@ -22,7 +22,7 @@
 #include "store.h"
 #include "scraping.h"
 #include "algorithms.h"
-
+#include "product.h"
 
 using namespace std;
 
@@ -86,6 +86,10 @@ int main (int argc, char* argv[]) {
 
 				amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
 				productInfoFromEachStore.push_back(amazonData[0]);				
+
+				Product* amazonProduct = new Product (amazonData[0][0], amazonData[0][1], amazonData[0][2], amazonData[0][3]);
+
+				//cout << (*amazonProduct).getName() << endl;
 
 				americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
 				productInfoFromEachStore.push_back(americanasData[0]);				
