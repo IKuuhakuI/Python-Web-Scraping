@@ -18,15 +18,11 @@
 
 using namespace std;
 
-Product::Product(string productName, string productPrice, string productUrl, string storeName) {
+Product::Product(string productName, string productPrice, string productUrl, string storeName, bool wish) {
 	name = productName;
 	store = storeName;
 
-	try {
-		price = stof (productPrice);
-	} catch (invalid_argument& e) {
-		price = strToFloat(productPrice);
-	}
+	price = strToFloat(productPrice, wish);
 
 	url = productUrl;
 }

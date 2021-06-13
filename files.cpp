@@ -75,7 +75,7 @@ void fileRead (string fileName, vector <Product*> &productList) {
 		string url = currentLine.substr (startUrl, endUrl - startUrl);
 		string store = currentLine.substr (startStore, endStore - startStore + 1);
 		
-		Product* newProduct = new Product (name, price, url, store);
+		Product* newProduct = new Product (name, price, url, store, true);
 
 		productList.push_back (newProduct);
 	} 

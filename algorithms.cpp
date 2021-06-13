@@ -19,11 +19,13 @@ void strToConstCharList (string incoming, char* &output) {
 	strcpy (output, incoming.c_str());
 }
 
-float strToFloat (string incoming) {
+float strToFloat (string incoming, bool wish) {
 
-	incoming.erase (remove(incoming.begin(), incoming.end(), '.'), incoming.end());
+	if (wish == false) {
+		incoming.erase (remove(incoming.begin(), incoming.end(), '.'), incoming.end());
 
-	incoming.replace (incoming.find(","), 1, ".");
+		incoming.replace (incoming.find(","), 1, ".");
+	}
 
 	return stof (incoming);
 }

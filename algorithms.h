@@ -22,7 +22,7 @@ string completeURL (string, string);
 
 void strToConstCharList (string, char*&);
 
-float strToFloat (string);
+float strToFloat (string, bool = false);
 
 vector<string> constCharToVectorStr (const char*);
 

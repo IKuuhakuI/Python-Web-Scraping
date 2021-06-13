@@ -19,7 +19,7 @@ using namespace std;
 
 class Product {
 	public:
-		Product (string, string, string, string);
+		Product (string, string, string, string, bool = false);
 		
 		string getName();
 		string getStore();

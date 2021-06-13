@@ -143,48 +143,55 @@ int main (int argc, char* argv[]) {
 				if ((*amazon).isSelected() == true) {
 					amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
 
-					currentName = amazonData[0][0];
-					currentPrice = amazonData[0][1];
-					currentUrl = amazonData[0][2];
-					currentStore = amazonData[0][3];
+					if (amazonData.size() > 0) {
+						currentName = amazonData[0][0];
+						currentPrice = amazonData[0][1];
+						currentUrl = amazonData[0][2];
+						currentStore = amazonData[0][3];
 
-					currentUrl = completeURL (currentStore, currentUrl);
-
-					Product* amazonProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
-					productList.push_back(amazonProduct);				
+						currentUrl = completeURL (currentStore, currentUrl);
+	
+						Product* amazonProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
+						productList.push_back(amazonProduct);
+					}
 				}
 
 				if ((*americanas).isSelected() == true) {
 					americanasData = getData(productFinal, minPrice, maxPrice, "americanas");
 
-					currentName = americanasData[0][0];
-					currentPrice = americanasData[0][1];
-					currentUrl = americanasData[0][2];
-					currentStore = americanasData[0][3];
+					if (americanasData.size() > 0) {
+						currentName = americanasData[0][0];
+						currentPrice = americanasData[0][1];
+						currentUrl = americanasData[0][2];
+						currentStore = americanasData[0][3];
 
-					currentUrl = completeURL (currentStore, currentUrl);
+						currentUrl = completeURL (currentStore, currentUrl);
 
-					Product* americanasProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
-					productList.push_back(americanasProduct);				
+						Product* americanasProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
+						productList.push_back(americanasProduct);				
+					}
 				}
 
 				if ((*submarino).isSelected() == true) {
 					submarinoData = getData(productFinal, minPrice, maxPrice, "submarino");
 		
-					currentName = submarinoData[0][0];
-					currentPrice = submarinoData[0][1];
-					currentUrl = submarinoData[0][2];
-					currentStore = submarinoData[0][3];
+					if (submarinoData.size() > 0) {
+						currentName = submarinoData[0][0];
+						currentPrice = submarinoData[0][1];
+						currentUrl = submarinoData[0][2];
+						currentStore = submarinoData[0][3];
 
-					currentUrl = completeURL (currentStore, currentUrl);
+						currentUrl = completeURL (currentStore, currentUrl);
 
-					Product* submarinoProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
-					productList.push_back(submarinoProduct);				
+						Product* submarinoProduct = new Product (currentName, currentPrice, currentUrl, currentStore);
+						productList.push_back(submarinoProduct);
+					} 
 				}
 					
 				if (productList.size() == 0) {
-					cout << "Erro: Nenhuma loja selecionada" << endl;
+					cout << "Erro: Nenhum produto encontrado" << endl;
 				} else {
+					//cout << (*(productList[0])).getPrice() << endl;
 					float smallestPrice = (*(productList[0])).getPrice();
 					size_t smallestIndex = 0;				
 
@@ -340,6 +347,7 @@ int main (int argc, char* argv[]) {
 				cout << "------------------------------------------------" << endl;
 				
 				for(size_t index = 0; index < storeVector.size(); index++) {
+					cout << "ID: [" << index + 1 << "]" << endl; 
 					cout << "Nome do produto : " << (*storeVector[index]).getName() << endl;
 					cout << "Preço: R$ " << (*storeVector[index]).getPrice() << endl;
 					cout << "Link para pagina: " << (*storeVector[index]).getURL() << endl;
