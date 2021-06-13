@@ -733,10 +733,33 @@ int main (int argc, char* argv[]) {
 						cout << url2 << endl;	
 						
 						cout << endl;
-
-						cout << "Aperte 0 para sair e 1 para fazer outra busca." << endl;
+							
+						cout << "Aperte 0 para sair, 1 para fazer outra busca e 2 para adicionar na lista de desejos." << endl;
 						cin >> optionDW;						
 						
+						if (optionDW == 2) {
+							int currentOption;
+	
+							cout << "Indique o numero correspondente a loja da qual deseja salvar o produto: " << endl;
+							cout << "OBS: Loja 1 ou Loja 2" << endl;
+							cin >> currentOption;
+
+							if (currentOption == 1) {
+								wishList.push_back(productList[0]);
+								fileWrite("wishList.cvs", wishList);
+								cout << "Produto adicionado com sucesso." << endl;
+							} else if (currentOption == 2) {
+								wishList.push_back(productList[1]);
+								fileWrite("wishList.cvs", wishList);
+								cout << "Produto adicionado com sucesso." << endl;
+						
+							} else {
+								cout << "Opcao invalida" << endl;
+							}
+							
+							break;
+						}
+
 						cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 						
 					} while (optionDW != 0);
