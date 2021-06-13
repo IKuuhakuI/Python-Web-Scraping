@@ -6,10 +6,13 @@
 <p> Versão do C++: 11 </p>
 
 <p> Instalar: python3.8-dev </p>
+
 > $ sudo apt-get install python3.8-dev
 
 <p><b> Bibliotecas do python: </b></p>
 
 > pip3 install requests_html
+
 > pip3 install lxml 
+
 > pip3 install beautifulsoup4
