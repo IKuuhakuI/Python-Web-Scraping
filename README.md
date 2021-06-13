@@ -43,4 +43,19 @@
 ![alt text](https://i.ibb.co/2tYRpVD/pasted-image-0.png "Figura 1")
 
 <h3> Sistema de Gerenciamento </h3>
-<p> O sistema de gerenciamento foi feito em C++ </p>
+<p> O sistema de gerenciamento foi feito em C++. Ele é baseado na classe Product que guarda as informações mais relevantes do produto (seu nome, preço, url e a loja). Baseado nisso, o programa tem 5 funções principais. </p>
+
+1. Busca por produto
+<p> Nessa opção, o usuário irá entrar com um produto e uma faixa de preço. Essas informações serão passadas para o sistema de coleta (feito com o python3). Em seguida, o sistema de coleta irá retornar os resultados da busca para o programa gerenciador, no qual ele irá filtrar todos os dados e, por fim, irá retornar somente um único produto para o usuário. O resultado pode ser adicionado na lista de desejos. </p>
+
+2. Ver lista de produtos
+<p> Essa opção funciona de maneira similar a descrita anteriormente. A principal diferença é que, em vez do usuário fazer uma busca entre todas as lojas e receber somente um único resultado, ele irá buscar por um produto em uma loja específica e receberá várias resultados da pesquisa. O usuário poderá adicionar qualquer um dos resultados na lista de desejos. </p>
+
+3. Configurar lojas
+<p> Essa opção serve para que o usuário possa escolher quais são as lojas que serão utilizadas na busca do <b> item 1 </b>.</p>
+
+4. Comparação de preços entre lojas
+<p> Nessa opção, o usuário poderá comparar o preço de um produto entre 2 lojas. Cada loja irá retornar um resultado. Qualquer um dos dois resultados pode ser adicionado para a lista de desejos. </p>
+
+5. Lista de desejos
+<p> A lista de desejos é um local no qual o usuário poderá salvar produtos de seu interesse. Nessa opção, ele pode remover qualquer produto que não queira mais. A persistência dos dados será feita através do arquivo 'wishList.csv'. </p>
