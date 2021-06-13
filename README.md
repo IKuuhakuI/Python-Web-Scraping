@@ -59,3 +59,6 @@
 
 5. Lista de desejos
 <p> A lista de desejos é um local no qual o usuário poderá salvar produtos de seu interesse. Nessa opção, ele pode remover qualquer produto que não queira mais. A persistência dos dados será feita através do arquivo 'wishList.csv'. </p>
+
+<h3> Sistema de Coleta </h3>
+<p> O sistema de coleta é feito em python. Ao utilizar a biblioteca BeautifulSoup, é possível fazer uma requisição para uma página web, no qual será retornada o html da página. Depois disso, o próprio sistema de coleta irá filtrar pelos dados de nome do produto, preço e o link. O arquivo .py irá receber dados como: o nome do produto e a loja. Ele irá retornar uma tupla com todos os produtos que se enquadram no que foi pedido. </p>
