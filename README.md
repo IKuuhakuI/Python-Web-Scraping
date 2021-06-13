@@ -20,3 +20,8 @@
 > $ pip3 install lxml 
 
 > $ pip3 install beautifulsoup4
+
+<h2> Estrutura do Programa </h2>
+<p> O programa está dividido em duas partes principais: o sistema de coleta e o sistema de gerenciamento das informações. O primeiro sistema foi implementado em python, enquanto o segundo em c++. A figura abaixo ilustra o funcionamento do sistema: </p>
+
+![alt text](https://i.ibb.co/2tYRpVD/pasted-image-0.png "Figura 1")
