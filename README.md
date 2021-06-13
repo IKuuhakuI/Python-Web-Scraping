@@ -6,3 +6,4 @@
 <p> Versão do Python: 3.8 </p>
 <p> Versão do C++: 11 </p>
 <p> Instalar: python3.8-dev </p>
+>> $ sudo apt-get install python3.8-dev
