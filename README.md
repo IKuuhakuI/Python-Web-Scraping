@@ -1,5 +1,5 @@
 <h1> Trabalho Final: C++ e Python Web Scraping </h1>
-<h3> Por: Luiz Carlos Aguiar Carrion e Maria Eduarda Mafra </h3>
+<h4> Por: Luiz Carlos Aguiar Carrion e Maria Eduarda Mafra </h4>
 
 <h2> Objetivo </h2>
 <p> O objetivo do trabalho é o de criar uma aplicação que integre duas linguagens de programação diferentes. Para o projeto, as linguagens escolhidas foram o C++ e Python3 </p>
@@ -21,7 +21,26 @@
 
 > $ pip3 install beautifulsoup4
 
+<h2> Execução </h2>
+
+<p> Para executar o programa, siga esses passos: </p>
+
+1. Make
+
+> $ make webScraping
+
+2. Executar
+
+> $ ./webScraping
+
+* Comando extra
+
+> $ make clean
+
 <h2> Estrutura do Programa </h2>
 <p> O programa está dividido em duas partes principais: o sistema de coleta e o sistema de gerenciamento das informações. O primeiro sistema foi implementado em python, enquanto o segundo em c++. A figura abaixo ilustra o funcionamento do sistema: </p>
 
 ![alt text](https://i.ibb.co/2tYRpVD/pasted-image-0.png "Figura 1")
+
+<h3> Sistema de Gerenciamento </h3>
+<p> O sistema de gerenciamento foi feito em C++ </p>
