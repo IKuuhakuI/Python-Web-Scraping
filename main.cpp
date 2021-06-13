@@ -65,8 +65,6 @@ int main (int argc, char* argv[]) {
 		
 	
 			case '1':{
-				//vector<vector<string>> productInfoFromEachStore;
-
 				// Dados extraidos
 				vector<vector<string>> amazonData, americanasData, submarinoData;
 
@@ -81,6 +79,7 @@ int main (int argc, char* argv[]) {
 				
 				bool notEmpty = false;
 
+				//Filtra erro na entrada do nome do produto
 				do {
 					string tempProduct;
 					cout << "Informe o nome do produto que deseja pesquisar: ";
@@ -100,6 +99,7 @@ int main (int argc, char* argv[]) {
 
 				bool isValid;
 	
+				//Filtra entrada dos preços
 				do {
 					isValid = true;
 
@@ -140,6 +140,7 @@ int main (int argc, char* argv[]) {
 
 				string currentName, currentPrice, currentUrl, currentStore;
 	
+				// Verifica se as lojas estao selecionadas para busca
 				if ((*amazon).isSelected() == true) {
 					amazonData = getData(productFinal, minPrice, maxPrice, "amazon");
 
@@ -187,11 +188,11 @@ int main (int argc, char* argv[]) {
 						productList.push_back(submarinoProduct);
 					} 
 				}
-					
+				
+				// Filtra caso nao tenha nenhum elemento na lista	
 				if (productList.size() == 0) {
 					cout << "Erro: Nenhum produto encontrado" << endl;
 				} else {
-					//cout << (*(productList[0])).getPrice() << endl;
 					float smallestPrice = (*(productList[0])).getPrice();
 					size_t smallestIndex = 0;				
 
@@ -214,6 +215,7 @@ int main (int argc, char* argv[]) {
 					string addToWishList;
 					bool isSelected = false;
 
+					// Para adicionar produto na wishList
 					do {
 						cout << "Para adicionar o produto na lista de desejos, digite 1, para sair, digite 0" << endl;
 
@@ -312,6 +314,7 @@ int main (int argc, char* argv[]) {
                                 char *productFinal = auxiliar;
                                 strToConstCharList(product, productFinal);
 				
+				// Verfica qual loja foi escolhida
 				switch(chooseStore) {
 					case '1':
 						storeData = getData(productFinal, minPrice, maxPrice, "amazon");
@@ -329,6 +332,7 @@ int main (int argc, char* argv[]) {
 
 				vector <Product*> storeVector;
 
+				// Adiciona os produtos no vetor
 				for (size_t index = 0; index < storeData.size(); index++) {
 					
 					string productName = storeData[index][0];
@@ -355,7 +359,55 @@ int main (int argc, char* argv[]) {
 				}
 
 				cout << "________________________________________________" << endl;
-                                
+                               
+				string addToWishList, selectedOption;
+				bool isSelected = false;
+				
+
+				// Para adicionar produto na wishList
+				do {
+					cout << "Para adicionar o produto na lista de desejos, digite 1, para sair, digite 0" << endl;
+
+					getline (cin, addToWishList);
+
+					if (addToWishList == "1" or addToWishList == "0") {
+						isSelected = true;
+					} else {
+						cout << "Opcao invaldia" << endl;
+					}
+
+				} while (!isSelected);
+	
+				if (addToWishList == "1") {
+					cout << endl;
+					cout << "________________________________________________" << endl;
+					cout << "Indique o indice do produto para adiciona-lo na lista de desejo ou 0 para sair:" << endl;			
+					cin >> selectedOption;
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+					if (selectedOption != "0") {
+						int addThis;
+
+						try {		
+							addThis = stoi (selectedOption);
+
+							if((size_t)addThis <= storeVector.size() && addThis > 0) {
+								wishList.push_back(storeVector[addThis - 1]);
+								fileWrite ("wishList.csv", wishList);
+								cout << "Produto adicionado com sucesso" << endl;
+
+							} else {
+								cout << "Entrada invalida" << endl;
+							}
+
+						} catch (invalid_argument& e){
+							cout << "Entrda invalida" << endl;
+						}
+					}
+	
+				}
+				
+ 
 				cout << endl << endl;
 			}	
 			break;
